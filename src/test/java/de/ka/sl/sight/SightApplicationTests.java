@@ -1,4 +1,4 @@
-package de.ka.sl.sight.sight;
+package de.ka.sl.sight;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
