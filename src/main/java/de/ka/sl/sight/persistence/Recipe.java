@@ -34,7 +34,10 @@ public class Recipe {
     // Methods
     //--------------------------------------
 
-
+    public void updateFrom(Recipe recipe) {
+        this.title = recipe.title;
+        this.description = recipe.description;
+    }
 
     //--------------------------------------
     // General
