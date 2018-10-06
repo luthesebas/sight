@@ -47,7 +47,6 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Recipe recipe) throws URISyntaxException {
         Resource<Recipe> resource = recipeMapper.toResource(recipeDAO.save(recipe));
-        System.out.println(resource);
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
