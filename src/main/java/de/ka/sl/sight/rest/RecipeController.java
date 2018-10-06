@@ -74,6 +74,11 @@ public class RecipeController {
                 .body(resource);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id) {
+        if (recipeDAO.existsById(id))
+            recipeDAO.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
