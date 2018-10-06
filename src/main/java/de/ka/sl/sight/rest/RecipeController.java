@@ -52,10 +52,28 @@ public class RecipeController {
                 .body(resource);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public Resource<Recipe> read(@PathVariable long id) throws RecipeNotFoundException {
         return recipeMapper.toResource(
                 recipeDAO.findById(id).orElseThrow(() -> new RecipeNotFoundException(id)));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody Recipe newRecipe, @PathVariable long id) throws URISyntaxException {
+        Recipe updatedRecipe = recipeDAO.findById(id)
+                .map(recipe -> {
+                    recipe.updateFrom(newRecipe);
+                    return recipeDAO.save(recipe);
+                })
+                .orElseGet(() -> {
+                    //newRecipe.setId(id);
+                    return recipeDAO.save(newRecipe);
+                });
+        Resource<Recipe> resource = recipeMapper.toResource(updatedRecipe);
+        return ResponseEntity.created(new URI(resource.getId().expand().getHref()))
+                .body(resource);
+    }
+
+
 
 }
