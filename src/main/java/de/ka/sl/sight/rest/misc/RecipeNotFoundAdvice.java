@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest;
+package de.ka.sl.sight.rest.misc;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +15,7 @@ public class RecipeNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(RecipeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String handel(RecipeNotFoundException ex) {
+    public String handel(RecipeNotFoundException ex) {
         return ex.getMessage();
     }
 

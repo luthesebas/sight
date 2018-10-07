@@ -1,6 +1,5 @@
-package de.ka.sl.sight.rest;
+package de.ka.sl.sight.persistence;
 
-import de.ka.sl.sight.persistence.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
