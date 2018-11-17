@@ -9,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Data
 @Entity

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Component
-public class RecipeMapper implements ResourceAssembler<Recipe, Resource<Recipe>> {
+public final class RecipeMapper implements ResourceAssembler<Recipe, Resource<Recipe>> {
 
     @Override
     public Resource<Recipe> toResource(Recipe recipe) {

@@ -5,6 +5,7 @@ import de.ka.sl.sight.persistence.InstructionDAO;
 import de.ka.sl.sight.persistence.Recipe;
 import de.ka.sl.sight.persistence.RecipeDAO;
 import de.ka.sl.sight.rest.mapper.InstructionMapper;
+import de.ka.sl.sight.rest.misc.AppException;
 import de.ka.sl.sight.rest.misc.instruction.InstructionNotFoundException;
 import de.ka.sl.sight.rest.misc.recipe.RecipeNotFoundException;
 import org.springframework.hateoas.Resource;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +22,11 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
 @RequestMapping(value = "/recipes/{recipeId:[0-9]+}/instructions")
-public class InstructionController {
+public final class InstructionController {
 
     private InstructionDAO instructionDAO;
     private InstructionMapper instructionMapper;
@@ -55,14 +57,15 @@ public class InstructionController {
     }
 
     @GetMapping("/{id:[0-9]+}")
-    public Resource<Instruction> read(@PathVariable long id) throws InstructionNotFoundException {
+    public Resource<Instruction> read(@PathVariable long id) throws AppException {
         return instructionMapper.toResource(
                 instructionDAO.findById(id).orElseThrow(() -> new InstructionNotFoundException(id)));
     }
 
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody Instruction instruction,
-                                    @PathVariable(name = "recipeId") long recipeId) throws Exception {
+                                    @PathVariable(name = "recipeId") long recipeId)
+            throws AppException, URISyntaxException {
         Optional<Recipe> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
             instruction = instructionDAO.save(instruction);
@@ -79,7 +82,8 @@ public class InstructionController {
     @PutMapping("/{id:[0-9]+}")
     public ResponseEntity<?> update(@RequestBody Instruction newInstruction,
                                     @PathVariable(name = "recipeId") long recipeId,
-                                    @PathVariable(name = "id") long id) throws Exception {
+                                    @PathVariable(name = "id") long id)
+            throws AppException, URISyntaxException {
         Optional<Recipe> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
             Instruction updatedInstruction = instructionDAO.findByIdAndRecipeId(id, recipeId)

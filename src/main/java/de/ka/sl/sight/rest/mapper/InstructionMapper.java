@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Component
-public class InstructionMapper implements ResourceAssembler<Instruction, Resource<Instruction>> {
+public final class InstructionMapper implements ResourceAssembler<Instruction, Resource<Instruction>> {
 
     @Override
     public Resource<Instruction> toResource(Instruction instruction) {

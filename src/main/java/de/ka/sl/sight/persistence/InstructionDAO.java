@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 public interface InstructionDAO extends JpaRepository<Instruction, Long> {
 

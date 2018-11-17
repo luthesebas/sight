@@ -3,6 +3,7 @@ package de.ka.sl.sight.rest;
 import de.ka.sl.sight.persistence.Recipe;
 import de.ka.sl.sight.persistence.RecipeDAO;
 import de.ka.sl.sight.rest.mapper.RecipeMapper;
+import de.ka.sl.sight.rest.misc.AppException;
 import de.ka.sl.sight.rest.misc.recipe.RecipeNotFoundException;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -17,11 +18,11 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
 @RequestMapping(value = "/recipes")
-public class RecipeController {
+public final class RecipeController {
 
     private RecipeDAO recipeDAO;
     private RecipeMapper recipeMapper;
@@ -48,7 +49,7 @@ public class RecipeController {
     }
 
     @GetMapping("/{id:[0-9]+}")
-    public Resource<Recipe> read(@PathVariable long id) throws RecipeNotFoundException {
+    public Resource<Recipe> read(@PathVariable long id) throws AppException {
         return recipeMapper.toResource(
                 recipeDAO.findById(id).orElseThrow(() -> new RecipeNotFoundException(id)));
     }

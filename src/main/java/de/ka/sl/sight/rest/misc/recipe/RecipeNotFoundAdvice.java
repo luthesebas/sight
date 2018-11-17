@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @ControllerAdvice
-public class RecipeNotFoundAdvice {
+public final class RecipeNotFoundAdvice {
 
     @ResponseBody
     @ExceptionHandler(RecipeNotFoundException.class)

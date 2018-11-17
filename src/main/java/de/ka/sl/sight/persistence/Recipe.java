@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Data
 @Entity
