@@ -27,7 +27,6 @@ public final class Recipe {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Instruction> instructions;
 
     //--------------------------------------

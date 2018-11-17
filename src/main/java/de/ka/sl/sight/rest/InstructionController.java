@@ -76,4 +76,12 @@ public class InstructionController {
         }
     }
 
+    @DeleteMapping("/{id:[0-9]+}")
+    public ResponseEntity<?> delete(@PathVariable long recipeId, @PathVariable long id) {
+        if (instructionDAO.existsById(id)) {
+            instructionDAO.deleteById(id);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 }
