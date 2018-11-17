@@ -48,8 +48,8 @@ public final class Recipe {
     //--------------------------------------
 
     public void updateFrom(Recipe recipe) {
-        this.title = recipe.title;
-        this.description = recipe.description;
+        title = recipe.title;
+        description = recipe.description;
     }
 
     public void add(Instruction instruction) {
