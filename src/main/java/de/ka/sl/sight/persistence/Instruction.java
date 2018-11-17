@@ -45,6 +45,12 @@ public final class Instruction {
     // Methods
     //--------------------------------------
 
+    public void updateFrom(Instruction newInstruction) {
+        step = newInstruction.step;
+        description = newInstruction.description;
+        durationInSeconds = newInstruction.durationInSeconds;
+    }
+
     @Override
     public String toString() {
         return "Instruction{" +

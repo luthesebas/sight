@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,6 +75,23 @@ public class InstructionController {
         } else {
             throw new RecipeNotFoundException(recipeId);
         }
+    }
+
+    @PutMapping("/{id:[0-9]+}")
+    public ResponseEntity<?> update(@RequestBody Instruction newInstruction, @PathVariable long id) throws URISyntaxException {
+        Instruction updatedInstruction = instructionDAO.findById(id)
+                .map(instruction -> {
+                    instruction.updateFrom(newInstruction);
+                    return instructionDAO.save(instruction);
+                })
+                .orElseGet(() -> {
+                    //newInstruction.setId(id);
+                    return instructionDAO.save(newInstruction);
+                });
+        Resource<Instruction> resource = instructionMapper.toResource(updatedInstruction);
+        return ResponseEntity
+                .created(new URI(resource.getId().expand().getHref()))
+                .body(resource);
     }
 
     @DeleteMapping("/{id:[0-9]+}")
