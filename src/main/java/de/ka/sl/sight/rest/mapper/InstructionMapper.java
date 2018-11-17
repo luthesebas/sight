@@ -18,8 +18,10 @@ public class InstructionMapper implements ResourceAssembler<Instruction, Resourc
     @Override
     public Resource<Instruction> toResource(Instruction instruction) {
         Resource<Instruction> resource = new Resource<>(instruction);
-        resource.add(linkTo(InstructionController.class, instruction.getId()).slash(instruction.getId()).withSelfRel());
-        resource.add(linkTo(InstructionController.class, instruction.getId()).withRel("instructions"));
+        resource.add(linkTo(InstructionController.class, instruction.getRecipe().getId())
+                .slash(instruction.getId()).withSelfRel());
+        resource.add(linkTo(InstructionController.class, instruction.getRecipe().getId())
+                .withRel("instructions"));
         return resource;
     }
 
