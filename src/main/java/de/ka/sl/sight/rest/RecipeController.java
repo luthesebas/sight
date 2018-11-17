@@ -47,6 +47,12 @@ public class RecipeController {
         return new Resources<>(recipes, linkTo(RecipeController.class).withSelfRel());
     }
 
+    @GetMapping("/{id:[0-9]+}")
+    public Resource<Recipe> read(@PathVariable long id) throws RecipeNotFoundException {
+        return recipeMapper.toResource(
+                recipeDAO.findById(id).orElseThrow(() -> new RecipeNotFoundException(id)));
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Recipe recipe) throws URISyntaxException {
         Resource<Recipe> resource = recipeMapper.toResource(recipeDAO.save(recipe));
@@ -55,13 +61,7 @@ public class RecipeController {
                 .body(resource);
     }
 
-    @GetMapping("/{id}")
-    public Resource<Recipe> read(@PathVariable long id) throws RecipeNotFoundException {
-        return recipeMapper.toResource(
-                recipeDAO.findById(id).orElseThrow(() -> new RecipeNotFoundException(id)));
-    }
-
-    @PutMapping("/{id}")
+    @PutMapping("/{id:[0-9]+}")
     public ResponseEntity<?> update(@RequestBody Recipe newRecipe, @PathVariable long id) throws URISyntaxException {
         Recipe updatedRecipe = recipeDAO.findById(id)
                 .map(recipe -> {
@@ -78,7 +78,7 @@ public class RecipeController {
                 .body(resource);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:[0-9]+}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         if (recipeDAO.existsById(id))
             recipeDAO.deleteById(id);
