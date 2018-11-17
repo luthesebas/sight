@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.misc;
+package de.ka.sl.sight.rest.misc.recipe;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

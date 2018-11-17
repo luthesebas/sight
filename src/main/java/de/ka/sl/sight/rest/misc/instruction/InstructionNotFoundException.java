@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.misc;
+package de.ka.sl.sight.rest.misc.instruction;
 
 /**
  * @author Sebastian Luther (https://github.com/luthesebas)
