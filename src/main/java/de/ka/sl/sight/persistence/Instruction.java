@@ -21,6 +21,8 @@ public final class Instruction {
     private String description;
     private int durationInSeconds;
 
+    @ManyToOne private Recipe recipe;
+
     //--------------------------------------
     // Constructors
     //--------------------------------------
@@ -37,8 +39,15 @@ public final class Instruction {
     // Methods
     //--------------------------------------
 
-    //--------------------------------------
-    // General
-    //--------------------------------------
+    @Override
+    public String toString() {
+        return "Instruction{" +
+                "id=" + id +
+                ", step=" + step +
+                ", description='" + description + '\'' +
+                ", durationInSeconds=" + durationInSeconds +
+                ", recipe=" + (recipe != null ? recipe.getId() : "?") +
+                '}';
+    }
 
 }
