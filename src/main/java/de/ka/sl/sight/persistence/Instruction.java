@@ -1,5 +1,6 @@
 package de.ka.sl.sight.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,7 +22,9 @@ public final class Instruction {
     private String description;
     private int durationInSeconds;
 
-    @ManyToOne private Recipe recipe;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Recipe recipe;
 
     //--------------------------------------
     // Constructors

@@ -34,12 +34,14 @@ public final class Recipe {
     // Constructors
     //--------------------------------------
 
-    public Recipe() {}
+    public Recipe() {
+        this.instructions = new LinkedList<>();
+    }
 
     public Recipe(String title, String description) {
+        this();
         this.title = title;
         this.description = description;
-        this.instructions = new LinkedList<>();
     }
 
     //--------------------------------------
@@ -59,8 +61,13 @@ public final class Recipe {
         instructions.remove(instruction);
     }
 
-    //--------------------------------------
-    // General
-    //--------------------------------------
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 
 }
