@@ -17,6 +17,7 @@ public final class Instruction {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private int step;
     private String description;
     private int durationInSeconds;
 
@@ -26,7 +27,8 @@ public final class Instruction {
 
     public Instruction() {}
 
-    public Instruction(String description, int durationInSeconds) {
+    public Instruction(int step, String description, int durationInSeconds) {
+        this.step = step;
         this.description = description;
         this.durationInSeconds = durationInSeconds;
     }
