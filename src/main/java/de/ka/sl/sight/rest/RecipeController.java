@@ -73,7 +73,8 @@ public class RecipeController {
                     return recipeDAO.save(newRecipe);
                 });
         Resource<Recipe> resource = recipeMapper.toResource(updatedRecipe);
-        return ResponseEntity.created(new URI(resource.getId().expand().getHref()))
+        return ResponseEntity
+                .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
 
