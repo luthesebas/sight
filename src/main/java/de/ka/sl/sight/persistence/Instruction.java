@@ -17,7 +17,8 @@ import javax.persistence.*;
 @Table(name = "instruction")
 public final class Instruction {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private int step;
@@ -33,7 +34,8 @@ public final class Instruction {
     // Constructors
     //--------------------------------------
 
-    public Instruction() {}
+    public Instruction() {
+    }
 
     public Instruction(int step, String description, int durationInSeconds) {
         this.step = step;
