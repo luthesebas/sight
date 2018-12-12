@@ -1,6 +1,6 @@
 package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.persistence.instruction.Instruction;
+import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
@@ -47,28 +47,28 @@ public final class InstructionController {
     //--------------------------------------
 
     @GetMapping()
-    public Resources<Resource<Instruction>> all(@PathVariable(name = "recipeId") long recipeId) {
-        List<Resource<Instruction>> instructions = instructionDAO.findAllByRecipeId(recipeId).stream()
+    public Resources<Resource<InstructionEntity>> all(@PathVariable(name = "recipeId") long recipeId) {
+        List<Resource<InstructionEntity>> instructions = instructionDAO.findAllByRecipeId(recipeId).stream()
                 .map(instructionMapper::toResource)
                 .collect(Collectors.toList());
         return new Resources<>(instructions, linkTo(InstructionController.class, recipeId).withSelfRel());
     }
 
     @GetMapping("/{id:[0-9]+}")
-    public Resource<Instruction> read(@PathVariable long id) throws AppException {
+    public Resource<InstructionEntity> read(@PathVariable long id) throws AppException {
         return instructionMapper.toResource(
                 instructionDAO.findById(id).orElseThrow(() -> new InstructionNotFoundException(id)));
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody Instruction instruction,
+    public ResponseEntity<?> create(@RequestBody InstructionEntity instructionEntity,
                                     @PathVariable(name = "recipeId") long recipeId)
             throws AppException, URISyntaxException {
         Optional<RecipeEntity> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
-            instruction = instructionDAO.save(instruction);
-            instruction.setRecipe(optional.get());
-            Resource<Instruction> resource = instructionMapper.toResource(instructionDAO.save(instruction));
+            instructionEntity = instructionDAO.save(instructionEntity);
+            instructionEntity.setRecipe(optional.get());
+            Resource<InstructionEntity> resource = instructionMapper.toResource(instructionDAO.save(instructionEntity));
             return ResponseEntity
                     .created(new URI(resource.getId().expand().getHref()))
                     .body(resource);
@@ -78,23 +78,23 @@ public final class InstructionController {
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@RequestBody Instruction newInstruction,
+    public ResponseEntity<?> update(@RequestBody InstructionEntity newInstructionEntity,
                                     @PathVariable(name = "recipeId") long recipeId,
                                     @PathVariable(name = "id") long id)
             throws AppException, URISyntaxException {
         Optional<RecipeEntity> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
-            Instruction updatedInstruction = instructionDAO.findByIdAndRecipeId(id, recipeId)
+            InstructionEntity updatedInstructionEntity = instructionDAO.findByIdAndRecipeId(id, recipeId)
                     .map(instruction -> {
-                        instruction.updateFrom(newInstruction);
+                        instruction.updateFrom(newInstructionEntity);
                         return instructionDAO.save(instruction);
                     })
                     .orElseGet(() -> {
-                        //newInstruction.setId(id);
-                        newInstruction.setRecipe(optional.get());
-                        return instructionDAO.save(newInstruction);
+                        //newInstructionEntity.setId(id);
+                        newInstructionEntity.setRecipe(optional.get());
+                        return instructionDAO.save(newInstructionEntity);
                     });
-            Resource<Instruction> resource = instructionMapper.toResource(updatedInstruction);
+            Resource<InstructionEntity> resource = instructionMapper.toResource(updatedInstructionEntity);
             return ResponseEntity
                     .created(new URI(resource.getId().expand().getHref()))
                     .body(resource);

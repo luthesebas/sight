@@ -1,7 +1,7 @@
 package de.ka.sl.sight.persistence.recipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.ka.sl.sight.persistence.instruction.Instruction;
+import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,7 +29,7 @@ public final class RecipeEntity {
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
-    private List<Instruction> instructions;
+    private List<InstructionEntity> instructions;
 
     //--------------------------------------
     // Constructors
@@ -54,12 +54,12 @@ public final class RecipeEntity {
         description = recipeEntity.description;
     }
 
-    public void add(Instruction instruction) {
-        instructions.add(instruction);
+    public void add(InstructionEntity instructionEntity) {
+        instructions.add(instructionEntity);
     }
 
-    public void remove(Instruction instruction) {
-        instructions.remove(instruction);
+    public void remove(InstructionEntity instructionEntity) {
+        instructions.remove(instructionEntity);
     }
 
 }

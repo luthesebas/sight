@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @EqualsAndHashCode(of = "id")
 @Table(name = "instruction")
-public final class Instruction {
+public final class InstructionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +37,10 @@ public final class Instruction {
     // Constructors
     //--------------------------------------
 
-    public Instruction() {
+    public InstructionEntity() {
     }
 
-    public Instruction(int step, String description, int durationInSeconds) {
+    public InstructionEntity(int step, String description, int durationInSeconds) {
         this.step = step;
         this.description = description;
         this.durationInSeconds = durationInSeconds;
@@ -50,10 +50,10 @@ public final class Instruction {
     // Methods
     //--------------------------------------
 
-    public void updateFrom(Instruction newInstruction) {
-        step = newInstruction.step;
-        description = newInstruction.description;
-        durationInSeconds = newInstruction.durationInSeconds;
+    public void updateFrom(InstructionEntity newInstructionEntity) {
+        step = newInstructionEntity.step;
+        description = newInstructionEntity.description;
+        durationInSeconds = newInstructionEntity.durationInSeconds;
     }
 
 }
