@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Repository
-public interface RecipeDAO extends JpaRepository<Recipe, Long> {
+public interface RecipeDAO extends JpaRepository<RecipeEntity, Long> {
 
 }

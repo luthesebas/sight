@@ -1,6 +1,6 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
-import de.ka.sl.sight.persistence.recipe.Recipe;
+import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.rest.general.AppException;
 import org.springframework.hateoas.Resource;
@@ -39,39 +39,39 @@ public final class RecipeController {
     //--------------------------------------
 
     @GetMapping
-    public Resources<Resource<Recipe>> all() {
-        List<Resource<Recipe>> recipes = recipeDAO.findAll().stream()
+    public Resources<Resource<RecipeEntity>> all() {
+        List<Resource<RecipeEntity>> recipes = recipeDAO.findAll().stream()
                 .map(recipeMapper::toResource)
                 .collect(Collectors.toList());
         return new Resources<>(recipes, linkTo(RecipeController.class).withSelfRel());
     }
 
     @GetMapping("/{id:[0-9]+}")
-    public Resource<Recipe> read(@PathVariable long id) throws AppException {
+    public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
         return recipeMapper.toResource(
                 recipeDAO.findById(id).orElseThrow(() -> new RecipeNotFoundException(id)));
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Recipe recipe) throws URISyntaxException {
-        Resource<Recipe> resource = recipeMapper.toResource(recipeDAO.save(recipe));
+    public ResponseEntity<?> create(@RequestBody RecipeEntity recipeEntity) throws URISyntaxException {
+        Resource<RecipeEntity> resource = recipeMapper.toResource(recipeDAO.save(recipeEntity));
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);
     }
 
     @PutMapping("/{id:[0-9]+}")
-    public ResponseEntity<?> update(@RequestBody Recipe newRecipe, @PathVariable long id) throws URISyntaxException {
-        Recipe updatedRecipe = recipeDAO.findById(id)
+    public ResponseEntity<?> update(@RequestBody RecipeEntity newRecipeEntity, @PathVariable long id) throws URISyntaxException {
+        RecipeEntity updatedRecipeEntity = recipeDAO.findById(id)
                 .map(recipe -> {
-                    recipe.updateFrom(newRecipe);
+                    recipe.updateFrom(newRecipeEntity);
                     return recipeDAO.save(recipe);
                 })
                 .orElseGet(() -> {
-                    //newRecipe.setId(id);
-                    return recipeDAO.save(newRecipe);
+                    //newRecipeEntity.setId(id);
+                    return recipeDAO.save(newRecipeEntity);
                 });
-        Resource<Recipe> resource = recipeMapper.toResource(updatedRecipe);
+        Resource<RecipeEntity> resource = recipeMapper.toResource(updatedRecipeEntity);
         return ResponseEntity
                 .created(new URI(resource.getId().expand().getHref()))
                 .body(resource);

@@ -2,7 +2,7 @@ package de.ka.sl.sight.rest.resource.instruction;
 
 import de.ka.sl.sight.persistence.instruction.Instruction;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
-import de.ka.sl.sight.persistence.recipe.Recipe;
+import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.rest.general.AppException;
 import de.ka.sl.sight.rest.resource.recipe.RecipeNotFoundException;
@@ -64,7 +64,7 @@ public final class InstructionController {
     public ResponseEntity<?> create(@RequestBody Instruction instruction,
                                     @PathVariable(name = "recipeId") long recipeId)
             throws AppException, URISyntaxException {
-        Optional<Recipe> optional = recipeDAO.findById(recipeId);
+        Optional<RecipeEntity> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
             instruction = instructionDAO.save(instruction);
             instruction.setRecipe(optional.get());
@@ -82,7 +82,7 @@ public final class InstructionController {
                                     @PathVariable(name = "recipeId") long recipeId,
                                     @PathVariable(name = "id") long id)
             throws AppException, URISyntaxException {
-        Optional<Recipe> optional = recipeDAO.findById(recipeId);
+        Optional<RecipeEntity> optional = recipeDAO.findById(recipeId);
         if (optional.isPresent()) {
             Instruction updatedInstruction = instructionDAO.findByIdAndRecipeId(id, recipeId)
                     .map(instruction -> {

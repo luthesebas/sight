@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.ka.sl.sight.persistence.instruction.Instruction;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -16,7 +17,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(of = "id")
 @Table(name = "recipe")
-public final class Recipe {
+public final class RecipeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,7 @@ public final class Recipe {
     private String description;
 
     @JsonIgnore
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private List<Instruction> instructions;
@@ -33,11 +35,11 @@ public final class Recipe {
     // Constructors
     //--------------------------------------
 
-    public Recipe() {
+    public RecipeEntity() {
         this.instructions = new LinkedList<>();
     }
 
-    public Recipe(String title, String description) {
+    public RecipeEntity(String title, String description) {
         this();
         this.title = title;
         this.description = description;
@@ -47,9 +49,9 @@ public final class Recipe {
     // Methods
     //--------------------------------------
 
-    public void updateFrom(Recipe recipe) {
-        title = recipe.title;
-        description = recipe.description;
+    public void updateFrom(RecipeEntity recipeEntity) {
+        title = recipeEntity.title;
+        description = recipeEntity.description;
     }
 
     public void add(Instruction instruction) {
@@ -58,15 +60,6 @@ public final class Recipe {
 
     public void remove(Instruction instruction) {
         instructions.remove(instruction);
-    }
-
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 
 }

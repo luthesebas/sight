@@ -1,9 +1,10 @@
 package de.ka.sl.sight.persistence.instruction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.ka.sl.sight.persistence.recipe.Recipe;
+import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -27,9 +28,10 @@ public final class Instruction {
     private int durationInSeconds;
 
     @JsonIgnore
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Recipe recipe;
+    private RecipeEntity recipe;
 
     //--------------------------------------
     // Constructors
@@ -52,17 +54,6 @@ public final class Instruction {
         step = newInstruction.step;
         description = newInstruction.description;
         durationInSeconds = newInstruction.durationInSeconds;
-    }
-
-    @Override
-    public String toString() {
-        return "Instruction{" +
-                "id=" + id +
-                ", step=" + step +
-                ", description='" + description + '\'' +
-                ", durationInSeconds=" + durationInSeconds +
-                ", recipe=" + (recipe != null ? recipe.getId() : "?") +
-                '}';
     }
 
 }
