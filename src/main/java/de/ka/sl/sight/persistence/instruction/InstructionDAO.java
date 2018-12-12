@@ -1,4 +1,4 @@
-package de.ka.sl.sight.persistence;
+package de.ka.sl.sight.persistence.instruction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,6 @@
-package de.ka.sl.sight.rest.mapper;
+package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.persistence.Instruction;
-import de.ka.sl.sight.rest.InstructionController;
+import de.ka.sl.sight.persistence.instruction.Instruction;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

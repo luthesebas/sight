@@ -1,7 +1,7 @@
-package de.ka.sl.sight.rest.misc;
+package de.ka.sl.sight.rest.general;
 
-import de.ka.sl.sight.rest.misc.instruction.InstructionNotFoundException;
-import de.ka.sl.sight.rest.misc.recipe.RecipeNotFoundException;
+import de.ka.sl.sight.rest.resource.instruction.InstructionNotFoundException;
+import de.ka.sl.sight.rest.resource.recipe.RecipeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,6 +1,7 @@
-package de.ka.sl.sight.persistence;
+package de.ka.sl.sight.persistence.instruction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.ka.sl.sight.persistence.recipe.Recipe;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.OnDelete;

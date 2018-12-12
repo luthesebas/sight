@@ -1,6 +1,6 @@
-package de.ka.sl.sight.rest.misc.recipe;
+package de.ka.sl.sight.rest.resource.recipe;
 
-import de.ka.sl.sight.rest.misc.AppException;
+import de.ka.sl.sight.rest.general.AppException;
 
 /**
  * @author Sebastian Luther (https://github.com/luthesebas)

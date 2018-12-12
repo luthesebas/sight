@@ -1,13 +1,11 @@
-package de.ka.sl.sight.rest;
+package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.persistence.Instruction;
-import de.ka.sl.sight.persistence.InstructionDAO;
-import de.ka.sl.sight.persistence.Recipe;
-import de.ka.sl.sight.persistence.RecipeDAO;
-import de.ka.sl.sight.rest.mapper.InstructionMapper;
-import de.ka.sl.sight.rest.misc.AppException;
-import de.ka.sl.sight.rest.misc.instruction.InstructionNotFoundException;
-import de.ka.sl.sight.rest.misc.recipe.RecipeNotFoundException;
+import de.ka.sl.sight.persistence.instruction.Instruction;
+import de.ka.sl.sight.persistence.instruction.InstructionDAO;
+import de.ka.sl.sight.persistence.recipe.Recipe;
+import de.ka.sl.sight.persistence.recipe.RecipeDAO;
+import de.ka.sl.sight.rest.general.AppException;
+import de.ka.sl.sight.rest.resource.recipe.RecipeNotFoundException;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;

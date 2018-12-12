@@ -1,6 +1,6 @@
-package de.ka.sl.sight.rest.misc.instruction;
+package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.rest.misc.AppException;
+import de.ka.sl.sight.rest.general.AppException;
 
 /**
  * @author Sebastian Luther (https://github.com/luthesebas)

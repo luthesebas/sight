@@ -1,6 +1,7 @@
-package de.ka.sl.sight.persistence;
+package de.ka.sl.sight.persistence.recipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.ka.sl.sight.persistence.instruction.Instruction;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
