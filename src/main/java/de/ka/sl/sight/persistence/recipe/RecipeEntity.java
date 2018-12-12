@@ -1,6 +1,7 @@
 package de.ka.sl.sight.persistence.recipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.ka.sl.sight.persistence.IEntity;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,19 +15,16 @@ import java.util.List;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Data
+@ToString(exclude = {"instructions"})
+@EqualsAndHashCode(callSuper = true, exclude = {"instructions"})
 @Entity
-@EqualsAndHashCode(of = "id")
 @Table(name = "recipe")
-public final class RecipeEntity {
+public final class RecipeEntity extends IEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String title;
     private String description;
 
     @JsonIgnore
-    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private List<InstructionEntity> instructions;
