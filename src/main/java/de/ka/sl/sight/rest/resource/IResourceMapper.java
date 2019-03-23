@@ -23,4 +23,11 @@ public interface IResourceMapper<M, N> extends ResourceAssembler<M, Resource<N>>
         return new Resources<>(resources, linkTo(controller.getClass()).withSelfRel());
     }
 
+    default Resources<Resource<N>> toResource(List<M> models, Class controller, Object pathValue) {
+        List<Resource<N>> resources = models.stream()
+                .map(this::toResource)
+                .collect(Collectors.toList());
+        return new Resources<>(resources, linkTo(controller.getClass(), pathValue).withSelfRel());
+    }
+
 }
