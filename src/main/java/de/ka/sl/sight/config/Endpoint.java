@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.general;
+package de.ka.sl.sight.config;
 
 /**
  * @author Sebastian Luther (@url(https://github.com/luthesebas))

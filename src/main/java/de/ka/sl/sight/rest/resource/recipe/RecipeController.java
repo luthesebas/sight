@@ -1,7 +1,7 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-import de.ka.sl.sight.rest.general.Endpoint;
+import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;

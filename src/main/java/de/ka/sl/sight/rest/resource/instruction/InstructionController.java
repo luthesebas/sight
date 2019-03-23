@@ -3,7 +3,7 @@ package de.ka.sl.sight.rest.resource.instruction;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-import de.ka.sl.sight.rest.general.Endpoint;
+import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.resource.recipe.RecipeService;
