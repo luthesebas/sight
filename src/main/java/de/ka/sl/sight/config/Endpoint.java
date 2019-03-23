@@ -12,6 +12,7 @@ public class Endpoint {
     //TODO Extract values from a config file
     public final static String RECIPES = "/recipes";
 
+    public final static String ID_VAR_NAME = "id";
     public final static String ID = "/{id:[0-9]+}";
 
 }
