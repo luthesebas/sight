@@ -29,6 +29,7 @@ public final class InstructionController {
 
     private final RecipeService recipeService;
     private final InstructionService instructionService;
+    private final InstructionResourceMapper mapper;
 
     //--------------------------------------
     // Methods
@@ -50,7 +51,7 @@ public final class InstructionController {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
             InstructionEntity instruction = instructionService.create(data, recipe.get());
-            Resource<InstructionEntity> resource = instructionService.asResource(instruction);
+            Resource<InstructionEntity> resource = mapper.toResource(instruction);
             return ResponseEntity.created(uriOf(resource)).body(resource);
         } else {
             throw new NotFoundException(RecipeEntity.class, recipeId);
@@ -66,7 +67,7 @@ public final class InstructionController {
         Optional<RecipeEntity> optional = recipeService.read(recipeId);
         if (optional.isPresent()) {
             InstructionEntity instruction = instructionService.update(instructionId, data, optional.get());
-            Resource<InstructionEntity> resource = instructionService.asResource(instruction);
+            Resource<InstructionEntity> resource = mapper.toResource(instruction);
             return ResponseEntity.created(uriOf(resource)).body(resource);
         } else {
             throw new NotFoundException(RecipeEntity.class, recipeId);
@@ -79,7 +80,7 @@ public final class InstructionController {
     ) throws NotFoundException {
         List<InstructionEntity> instructions = instructionService.read(recipeId);
         if (instructions != null && !instructions.isEmpty()) {
-            return instructionService.asResource(instructions, InstructionController.class, recipeId);
+            return mapper.toResource(instructions, InstructionController.class, recipeId);
         } else {
             throw new NotFoundException(InstructionEntity.class);
         }
@@ -92,7 +93,7 @@ public final class InstructionController {
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
         if (optional.isPresent()) {
-            return instructionService.asResource(optional.get());
+            return mapper.toResource(optional.get());
         } else {
             throw new NotFoundException(Instruction.class, instructionId);
         }
