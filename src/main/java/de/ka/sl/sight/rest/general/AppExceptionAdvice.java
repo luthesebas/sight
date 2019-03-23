@@ -2,6 +2,8 @@ package de.ka.sl.sight.rest.general;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import de.ka.sl.sight.rest.general.exception.ExceptionMessage;
+import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

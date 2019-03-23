@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.general;
+package de.ka.sl.sight.rest.general.exception;
 
 import lombok.Data;
 
