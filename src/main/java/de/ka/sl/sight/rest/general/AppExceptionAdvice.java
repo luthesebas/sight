@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 public final class AppExceptionAdvice {
 
     private ExceptionMessage mapToModel(Exception ex) {
+        ex.printStackTrace();
         return new ExceptionMessage(ex.getMessage());
     }
 
@@ -58,6 +59,7 @@ public final class AppExceptionAdvice {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionMessage handel(Exception ex, WebRequest request) {
+        ex.printStackTrace();
         return mapToModel("Oops... something went wrong on our end. Sorry!");
     }
 
