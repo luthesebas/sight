@@ -3,7 +3,7 @@ package de.ka.sl.sight.rest.resource.recipe;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
-import de.ka.sl.sight.rest.general.Path;
+import de.ka.sl.sight.rest.general.Endpoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(value = Path.RECIPES)
+@RequestMapping(value = Endpoint.RECIPES)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class RecipeController {
 
@@ -40,7 +40,7 @@ public final class RecipeController {
         return recipeService.asResource(recipes, RecipeController.class);
     }
 
-    @GetMapping(Path.ID)
+    @GetMapping(Endpoint.ID)
     public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
         Optional<RecipeEntity> entity = recipeService.get(id);
         if (entity.isPresent()) {
@@ -57,7 +57,7 @@ public final class RecipeController {
         return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
-    @PutMapping(Path.ID)
+    @PutMapping(Endpoint.ID)
     public ResponseEntity<?> update(
             @PathVariable long id,
             @RequestBody RecipeEntity newRecipeEntity
@@ -67,7 +67,7 @@ public final class RecipeController {
         return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
-    @DeleteMapping(Path.ID)
+    @DeleteMapping(Endpoint.ID)
     public ResponseEntity<?> delete(@PathVariable long id) {
         recipeService.delete(id);
         return ResponseEntity.noContent().build();

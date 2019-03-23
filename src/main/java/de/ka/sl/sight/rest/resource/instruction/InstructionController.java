@@ -5,7 +5,7 @@ import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
-import de.ka.sl.sight.rest.general.Path;
+import de.ka.sl.sight.rest.general.Endpoint;
 import de.ka.sl.sight.rest.resource.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.apache.bcel.generic.Instruction;
@@ -27,7 +27,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(value = Path.RECIPES + "/{recipeId:[0-9]+}/instructions")
+@RequestMapping(value = Endpoint.RECIPES + "/{recipeId:[0-9]+}/instructions")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class InstructionController {
 
@@ -49,7 +49,7 @@ public final class InstructionController {
         return new Resources<>(instructions, linkTo(InstructionController.class, recipeId).withSelfRel());
     }
 
-    @GetMapping(Path.ID)
+    @GetMapping(Endpoint.ID)
     public Resource<InstructionEntity> read(@PathVariable long id) throws AppException {
         Optional<InstructionEntity> optional = instructionDAO.findById(id);
         if (optional.isPresent()) {
@@ -76,7 +76,7 @@ public final class InstructionController {
         }
     }
 
-    @PutMapping(Path.ID)
+    @PutMapping(Endpoint.ID)
     public ResponseEntity<?> update(@RequestBody InstructionEntity newInstructionEntity,
                                     @PathVariable(name = "recipeId") long recipeId,
                                     @PathVariable(name = "id") long id)
@@ -103,7 +103,7 @@ public final class InstructionController {
         }
     }
 
-    @DeleteMapping(Path.ID)
+    @DeleteMapping(Endpoint.ID)
     public ResponseEntity<?> delete(@PathVariable long recipeId, @PathVariable long id) {
         if (instructionDAO.existsById(id)) {
             instructionDAO.deleteById(id);
