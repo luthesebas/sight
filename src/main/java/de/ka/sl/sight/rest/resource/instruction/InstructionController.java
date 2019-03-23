@@ -23,7 +23,7 @@ import java.util.Optional;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(value = Endpoint.RECIPES + "/{recipeId:[0-9]+}/instructions")
+@RequestMapping(Endpoint.RECIPES_ID + Endpoint.INSTRUCTIONS)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class InstructionController {
 
@@ -44,7 +44,7 @@ public final class InstructionController {
 
     @PostMapping()
     public ResponseEntity<?> create(
-            @PathVariable("recipeId") long recipeId,
+            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
             @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
@@ -59,8 +59,8 @@ public final class InstructionController {
 
     @PutMapping(Endpoint.ID)
     public ResponseEntity<?> update(
-            @PathVariable("recipeId") long recipeId,
-            @PathVariable("id") long instructionId,
+            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
+            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId,
             @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> optional = recipeService.read(recipeId);
@@ -75,7 +75,7 @@ public final class InstructionController {
 
     @GetMapping()
     public Resources<Resource<InstructionEntity>> read(
-            @PathVariable("recipeId") long recipeId
+            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId
     ) throws NotFoundException {
         List<InstructionEntity> instructions = instructionService.read(recipeId);
         if (instructions != null && !instructions.isEmpty()) {
@@ -87,8 +87,8 @@ public final class InstructionController {
 
     @GetMapping(Endpoint.ID)
     public Resource<InstructionEntity> read(
-            @PathVariable("recipeId") long recipeId,
-            @PathVariable("id") long instructionId
+            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
+            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
         if (optional.isPresent()) {
@@ -100,8 +100,8 @@ public final class InstructionController {
 
     @DeleteMapping(Endpoint.ID)
     public ResponseEntity<?> delete(
-            @PathVariable("recipeId") long recipeId,
-            @PathVariable("id") long instructionId
+            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
+            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId
     ) {
         instructionService.delete(instructionId, recipeId);
         return ResponseEntity.noContent().build();
