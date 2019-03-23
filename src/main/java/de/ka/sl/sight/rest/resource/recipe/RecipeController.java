@@ -34,12 +34,6 @@ public final class RecipeController {
         return new URI(resource.getId().expand().getHref());
     }
 
-    @GetMapping
-    public Resources<Resource<RecipeEntity>> all() {
-        List<RecipeEntity> recipes = recipeService.all();
-        return recipeService.asResource(recipes, RecipeController.class);
-    }
-
     //--------------------------------------
     // CRUD
     //--------------------------------------
@@ -61,6 +55,16 @@ public final class RecipeController {
         RecipeEntity recipe = recipeService.update(recipeId, data);
         Resource<RecipeEntity> resource = recipeService.asResource(recipe);
         return ResponseEntity.created(uriOf(resource)).body(resource);
+    }
+
+    @GetMapping
+    public Resources<Resource<RecipeEntity>> read() throws NotFoundException {
+        List<RecipeEntity> recipes = recipeService.read();
+        if (recipes == null || !recipes.isEmpty()) {
+            return recipeService.asResource(recipes, RecipeController.class);
+        } else {
+            throw new NotFoundException(RecipeEntity.class);
+        }
     }
 
     @GetMapping(Endpoint.ID)
