@@ -1,7 +1,6 @@
 package de.ka.sl.sight.rest.resource;
 
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceAssembler;
+import de.ka.sl.sight.persistence.IEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,9 +8,7 @@ import java.util.stream.Collectors;
 /**
  * @author Sebastian Luther (@url(https://github.com/luthesebas))
  */
-public interface IMapper<M, N> extends ResourceAssembler<M, Resource<N>> {
-
-    Resource<N> toResource(M model);
+public interface IMapper<M extends IEntity, N> {
 
     N mapToModel(M model);
 
