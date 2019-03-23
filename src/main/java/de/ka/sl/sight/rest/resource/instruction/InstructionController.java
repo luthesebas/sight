@@ -1,12 +1,11 @@
 package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
+import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.AppException;
 import de.ka.sl.sight.rest.general.NotFoundException;
 import de.ka.sl.sight.rest.general.Path;
-import de.ka.sl.sight.rest.resource.recipe.RecipeNotFoundException;
 import de.ka.sl.sight.rest.resource.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.apache.bcel.generic.Instruction;
@@ -73,7 +72,7 @@ public final class InstructionController {
                     .created(new URI(resource.getId().expand().getHref()))
                     .body(resource);
         } else {
-            throw new RecipeNotFoundException(recipeId);
+            throw new NotFoundException(RecipeEntity.class, recipeId);
         }
     }
 
@@ -100,7 +99,7 @@ public final class InstructionController {
                     .created(new URI(resource.getId().expand().getHref()))
                     .body(resource);
         } else {
-            throw new RecipeNotFoundException(recipeId);
+            throw new NotFoundException(RecipeEntity.class, recipeId);
         }
     }
 

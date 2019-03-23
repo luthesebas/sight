@@ -2,6 +2,7 @@ package de.ka.sl.sight.rest.resource.recipe;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.AppException;
+import de.ka.sl.sight.rest.general.NotFoundException;
 import de.ka.sl.sight.rest.general.Path;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -49,7 +50,7 @@ public final class RecipeController {
     @GetMapping(Path.ID)
     public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
         return recipeMapper.toResource(
-                recipeService.get(id).orElseThrow(() -> new RecipeNotFoundException(id)));
+                recipeService.get(id).orElseThrow(() -> new NotFoundException(RecipeEntity.class, id)));
     }
 
     @PostMapping
