@@ -19,7 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 public final class AppExceptionAdvice {
 
     private ExceptionMessage mapToModel(Exception ex) {
-        ex.printStackTrace();
+        //ex.printStackTrace();
         return new ExceptionMessage(ex.getMessage());
     }
 
