@@ -32,12 +32,6 @@ public class RecipeService {
         return recipeMapper.toResource(entity);
     }
 
-    public List<Resource<RecipeEntity>> asResource(List<RecipeEntity> entities) {
-        return entities.stream()
-                .map(recipeMapper::toResource)
-                .collect(Collectors.toList());
-    }
-
     public Resources<Resource<RecipeEntity>> asResource(List<RecipeEntity> entities, Class controller) {
         List<Resource<RecipeEntity>> resources = entities.stream()
                 .map(recipeMapper::toResource)
@@ -46,27 +40,27 @@ public class RecipeService {
     }
 
 
-    public boolean exists(long id) {
-        return recipeDAO.existsById(id);
+    public boolean exists(long recipeId) {
+        return recipeDAO.existsById(recipeId);
     }
 
     //--------------------------------------
     // CRUD
     //--------------------------------------
 
-    public RecipeEntity create(RecipeEntity recipeEntity) {
-        return recipeDAO.save(recipeEntity);
+    public RecipeEntity create(RecipeEntity data) {
+        return recipeDAO.save(data);
     }
 
-    public RecipeEntity update(long recipeId, RecipeEntity newRecipeEntity) {
+    public RecipeEntity update(long recipeId, RecipeEntity data) {
         return read(recipeId)
                 .map(recipe -> {
-                    recipe.updateFrom(newRecipeEntity);
+                    recipe.updateFrom(data);
                     return create(recipe);
                 })
                 .orElseGet(() -> {
-                    //newRecipeEntity.setId(id);
-                    return create(newRecipeEntity);
+                    //data.setId(id);
+                    return create(data);
                 });
     }
 
@@ -74,13 +68,13 @@ public class RecipeService {
         return recipeDAO.findAll();
     }
 
-    public Optional<RecipeEntity> read(long id) {
-        return recipeDAO.findById(id);
+    public Optional<RecipeEntity> read(long recipeId) {
+        return recipeDAO.findById(recipeId);
     }
 
-    public void delete(long id) {
-        if (exists(id)) {
-            recipeDAO.deleteById(id);
+    public void delete(long recipeId) {
+        if (exists(recipeId)) {
+            recipeDAO.deleteById(recipeId);
         }
     }
 
