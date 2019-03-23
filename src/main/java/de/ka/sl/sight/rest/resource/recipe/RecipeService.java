@@ -45,6 +45,7 @@ public class RecipeService {
         return new Resources<>(resources, linkTo(controller).withSelfRel());
     }
 
+
     public List<RecipeEntity> all() {
         return recipeDAO.findAll();
     }
