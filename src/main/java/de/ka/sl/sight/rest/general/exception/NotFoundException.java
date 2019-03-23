@@ -1,7 +1,5 @@
 package de.ka.sl.sight.rest.general.exception;
 
-import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-
 /**
  * @author Sebastian Luther (@url(https://github.com/luthesebas))
  */
