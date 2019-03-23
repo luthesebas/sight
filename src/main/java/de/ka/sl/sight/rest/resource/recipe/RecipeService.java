@@ -45,32 +45,36 @@ public class RecipeService {
         return new Resources<>(resources, linkTo(controller).withSelfRel());
     }
 
-    public RecipeEntity save(RecipeEntity recipeEntity) {
-        return recipeDAO.save(recipeEntity);
-    }
-
-    public RecipeEntity update(long recipeId, RecipeEntity newRecipeEntity) {
-        return get(recipeId)
-                .map(recipe -> {
-                    recipe.updateFrom(newRecipeEntity);
-                    return save(recipe);
-                })
-                .orElseGet(() -> {
-                    //newRecipeEntity.setId(id);
-                    return save(newRecipeEntity);
-                });
-    }
-
-    public Optional<RecipeEntity> get(long id) {
-        return recipeDAO.findById(id);
-    }
-
     public List<RecipeEntity> all() {
         return recipeDAO.findAll();
     }
 
     public boolean exists(long id) {
         return recipeDAO.existsById(id);
+    }
+
+    //--------------------------------------
+    // CRUD
+    //--------------------------------------
+
+    public RecipeEntity create(RecipeEntity recipeEntity) {
+        return recipeDAO.save(recipeEntity);
+    }
+
+    public RecipeEntity update(long recipeId, RecipeEntity newRecipeEntity) {
+        return read(recipeId)
+                .map(recipe -> {
+                    recipe.updateFrom(newRecipeEntity);
+                    return create(recipe);
+                })
+                .orElseGet(() -> {
+                    //newRecipeEntity.setId(id);
+                    return create(newRecipeEntity);
+                });
+    }
+
+    public Optional<RecipeEntity> read(long id) {
+        return recipeDAO.findById(id);
     }
 
     public void delete(long id) {
