@@ -60,7 +60,7 @@ public final class RecipeController {
     @GetMapping
     public Resources<Resource<RecipeEntity>> read() throws NotFoundException {
         List<RecipeEntity> recipes = recipeService.read();
-        if (recipes == null || !recipes.isEmpty()) {
+        if (recipes != null && !recipes.isEmpty()) {
             return recipeService.asResource(recipes, RecipeController.class);
         } else {
             throw new NotFoundException(RecipeEntity.class);
