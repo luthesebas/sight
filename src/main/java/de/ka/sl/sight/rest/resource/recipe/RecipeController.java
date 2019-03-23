@@ -4,6 +4,8 @@ import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.AppException;
 import de.ka.sl.sight.rest.general.NotFoundException;
 import de.ka.sl.sight.rest.general.Path;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -12,76 +14,62 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import java.util.Optional;
 
 /**
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
 @RequestMapping(value = Path.RECIPES)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class RecipeController {
 
-    private RecipeService recipeService;
-    private RecipeMapper recipeMapper;
-
-    //--------------------------------------
-    // Constructors
-    //--------------------------------------
-
-    public RecipeController(RecipeService recipeService, RecipeMapper recipeMapper) {
-        this.recipeService = recipeService;
-        this.recipeMapper = recipeMapper;
-    }
+    private final RecipeService recipeService;
 
     //--------------------------------------
     // Methods
     //--------------------------------------
 
+    private static <T> URI uriOf(Resource<T> resource) throws URISyntaxException {
+        return new URI(resource.getId().expand().getHref());
+    }
+
     @GetMapping
     public Resources<Resource<RecipeEntity>> all() {
-        List<Resource<RecipeEntity>> recipes = recipeService.all().stream()
-                .map(recipeMapper::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(recipes, linkTo(RecipeController.class).withSelfRel());
+        List<RecipeEntity> recipes = recipeService.all();
+        return recipeService.asResource(recipes, RecipeController.class);
     }
 
     @GetMapping(Path.ID)
     public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
-        return recipeMapper.toResource(
-                recipeService.get(id).orElseThrow(() -> new NotFoundException(RecipeEntity.class, id)));
+        Optional<RecipeEntity> entity = recipeService.get(id);
+        if (entity.isPresent()) {
+            return recipeService.asResource(entity.get());
+        } else {
+            throw new NotFoundException(RecipeEntity.class, id);
+        }
     }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody RecipeEntity recipeEntity) throws URISyntaxException {
-        Resource<RecipeEntity> resource = recipeMapper.toResource(recipeService.save(recipeEntity));
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+        RecipeEntity entity = recipeService.save(recipeEntity);
+        Resource<RecipeEntity> resource = recipeService.asResource(entity);
+        return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
     @PutMapping(Path.ID)
-    public ResponseEntity<?> update(@RequestBody RecipeEntity newRecipeEntity, @PathVariable long id) throws URISyntaxException {
-        RecipeEntity updatedRecipeEntity = recipeService.get(id)
-                .map(recipe -> {
-                    recipe.updateFrom(newRecipeEntity);
-                    return recipeService.save(recipe);
-                })
-                .orElseGet(() -> {
-                    //newRecipeEntity.setId(id);
-                    return recipeService.save(newRecipeEntity);
-                });
-        Resource<RecipeEntity> resource = recipeMapper.toResource(updatedRecipeEntity);
-        return ResponseEntity
-                .created(new URI(resource.getId().expand().getHref()))
-                .body(resource);
+    public ResponseEntity<?> update(
+            @PathVariable long id,
+            @RequestBody RecipeEntity newRecipeEntity
+    ) throws URISyntaxException {
+        RecipeEntity updatedRecipeEntity = recipeService.update(id, newRecipeEntity);
+        Resource<RecipeEntity> resource = recipeService.asResource(updatedRecipeEntity);
+        return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
     @DeleteMapping(Path.ID)
     public ResponseEntity<?> delete(@PathVariable long id) {
-        if (recipeService.exists(id))
-            recipeService.delete(id);
+        recipeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
