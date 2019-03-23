@@ -2,6 +2,7 @@ package de.ka.sl.sight.rest.resource.recipe;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.AppException;
+import de.ka.sl.sight.rest.general.Path;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(value = "/recipes")
+@RequestMapping(value = Path.RECIPES)
 public final class RecipeController {
 
     private RecipeService recipeService;
@@ -45,7 +46,7 @@ public final class RecipeController {
         return new Resources<>(recipes, linkTo(RecipeController.class).withSelfRel());
     }
 
-    @GetMapping("/{id:[0-9]+}")
+    @GetMapping(Path.ID)
     public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
         return recipeMapper.toResource(
                 recipeService.get(id).orElseThrow(() -> new RecipeNotFoundException(id)));
@@ -59,7 +60,7 @@ public final class RecipeController {
                 .body(resource);
     }
 
-    @PutMapping("/{id:[0-9]+}")
+    @PutMapping(Path.ID)
     public ResponseEntity<?> update(@RequestBody RecipeEntity newRecipeEntity, @PathVariable long id) throws URISyntaxException {
         RecipeEntity updatedRecipeEntity = recipeService.get(id)
                 .map(recipe -> {
@@ -76,7 +77,7 @@ public final class RecipeController {
                 .body(resource);
     }
 
-    @DeleteMapping("/{id:[0-9]+}")
+    @DeleteMapping(Path.ID)
     public ResponseEntity<?> delete(@PathVariable long id) {
         if (recipeService.exists(id))
             recipeService.delete(id);
