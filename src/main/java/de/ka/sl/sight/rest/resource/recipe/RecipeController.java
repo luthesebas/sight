@@ -1,9 +1,9 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
+import de.ka.sl.sight.rest.general.Endpoint;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
-import de.ka.sl.sight.rest.general.Endpoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
