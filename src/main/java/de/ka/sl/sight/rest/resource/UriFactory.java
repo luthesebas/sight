@@ -18,7 +18,7 @@ public class UriFactory {
     // Methods
     //--------------------------------------
 
-    public static <T> URI uriOf(Resource<T> resource) throws URISyntaxException {
+    public static <T> URI of(Resource<T> resource) throws URISyntaxException {
         return new URI(resource.getId().expand().getHref());
     }
 
