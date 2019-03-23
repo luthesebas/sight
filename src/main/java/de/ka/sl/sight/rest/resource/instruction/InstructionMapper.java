@@ -16,10 +16,12 @@ public final class InstructionMapper implements ResourceAssembler<InstructionEnt
     @Override
     public Resource<InstructionEntity> toResource(InstructionEntity instructionEntity) {
         Resource<InstructionEntity> resource = new Resource<>(instructionEntity);
-        resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
-                .slash(instructionEntity.getId()).withSelfRel());
-        resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
-                .withRel("instructions"));
+        if (instructionEntity.getRecipe() != null) {
+            resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
+                    .slash(instructionEntity.getId()).withSelfRel());
+            resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
+                    .withRel("instructions"));
+        }
         return resource;
     }
 
