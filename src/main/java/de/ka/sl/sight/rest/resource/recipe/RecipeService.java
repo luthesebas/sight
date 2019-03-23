@@ -44,7 +44,6 @@ public class RecipeService {
                 .collect(Collectors.toList());
         return new Resources<>(resources, linkTo(controller).withSelfRel());
     }
-    
 
     public RecipeEntity save(RecipeEntity recipeEntity) {
         return recipeDAO.save(recipeEntity);
