@@ -1,8 +1,8 @@
 package de.ka.sl.sight.rest.resource.instruction;
 
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
+import de.ka.sl.sight.rest.resource.IMapper;
 import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -11,7 +11,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @Component
-public final class InstructionMapper implements ResourceAssembler<InstructionEntity, Resource<InstructionEntity>> {
+public final class InstructionMapper implements IMapper<InstructionEntity, InstructionEntity> {
 
     @Override
     public Resource<InstructionEntity> toResource(InstructionEntity instructionEntity) {
@@ -23,6 +23,11 @@ public final class InstructionMapper implements ResourceAssembler<InstructionEnt
                     .withRel("instructions"));
         }
         return resource;
+    }
+
+    @Override
+    public InstructionEntity mapToModel(InstructionEntity model) {
+        return model;
     }
 
 }
