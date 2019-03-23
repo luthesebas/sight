@@ -46,10 +46,6 @@ public class RecipeService {
     }
 
 
-    public List<RecipeEntity> all() {
-        return recipeDAO.findAll();
-    }
-
     public boolean exists(long id) {
         return recipeDAO.existsById(id);
     }
@@ -72,6 +68,10 @@ public class RecipeService {
                     //newRecipeEntity.setId(id);
                     return create(newRecipeEntity);
                 });
+    }
+
+    public List<RecipeEntity> read() {
+        return recipeDAO.findAll();
     }
 
     public Optional<RecipeEntity> read(long id) {
