@@ -1,7 +1,7 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
-import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.config.Endpoint;
+import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -40,36 +40,46 @@ public final class RecipeController {
         return recipeService.asResource(recipes, RecipeController.class);
     }
 
-    @GetMapping(Endpoint.ID)
-    public Resource<RecipeEntity> read(@PathVariable long id) throws AppException {
-        Optional<RecipeEntity> entity = recipeService.get(id);
-        if (entity.isPresent()) {
-            return recipeService.asResource(entity.get());
-        } else {
-            throw new NotFoundException(RecipeEntity.class, id);
-        }
-    }
+    //--------------------------------------
+    // CRUD
+    //--------------------------------------
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody RecipeEntity recipeEntity) throws URISyntaxException {
-        RecipeEntity entity = recipeService.save(recipeEntity);
-        Resource<RecipeEntity> resource = recipeService.asResource(entity);
+    public ResponseEntity<?> create(
+            @RequestBody RecipeEntity data
+    ) throws URISyntaxException {
+        RecipeEntity recipe = recipeService.create(data);
+        Resource<RecipeEntity> resource = recipeService.asResource(recipe);
         return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
     @PutMapping(Endpoint.ID)
     public ResponseEntity<?> update(
-            @PathVariable long id,
-            @RequestBody RecipeEntity newRecipeEntity
+            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId,
+            @RequestBody RecipeEntity data
     ) throws URISyntaxException {
-        RecipeEntity updatedRecipeEntity = recipeService.update(id, newRecipeEntity);
-        Resource<RecipeEntity> resource = recipeService.asResource(updatedRecipeEntity);
+        RecipeEntity recipe = recipeService.update(recipeId, data);
+        Resource<RecipeEntity> resource = recipeService.asResource(recipe);
         return ResponseEntity.created(uriOf(resource)).body(resource);
     }
 
+    @GetMapping(Endpoint.ID)
+    public Resource<RecipeEntity> read(
+            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId
+    ) throws AppException {
+        Optional<RecipeEntity> recipe = recipeService.read(recipeId);
+        if (recipe.isPresent()) {
+            return recipeService.asResource(recipe.get());
+        } else {
+            throw new NotFoundException(RecipeEntity.class, recipeId);
+        }
+    }
+
     @DeleteMapping(Endpoint.ID)
-    public ResponseEntity<?> delete(@PathVariable long id) {
-        recipeService.delete(id);
+    public ResponseEntity<?> delete(
+            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId
+    ) {
+        recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();
     }
 
