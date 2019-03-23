@@ -11,12 +11,13 @@ public class Endpoint {
 
     }
 
+    public final static String ID = "/{id:[0-9]+}";
+    public final static String ID_VAR_NAME = "id";
+
     public final static String RECIPES = "/recipes";
     public final static String RECIPES_ID = RECIPES + "/{recipeId:[0-9]+}";
+    public final static String RECIPES_ID_VAR_NAME = "recipeId";
 
     public final static String INSTRUCTIONS = "/instructions";
-
-    public final static String ID_VAR_NAME = "id";
-    public final static String ID = "/{id:[0-9]+}";
 
 }
