@@ -4,15 +4,10 @@ import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * @author Sebastian Luther (@url(https://github.com/luthesebas))
@@ -27,18 +22,6 @@ public class RecipeService {
     //--------------------------------------
     // Methods
     //--------------------------------------
-
-    public Resource<RecipeEntity> asResource(RecipeEntity entity) {
-        return recipeMapper.toResource(entity);
-    }
-
-    public Resources<Resource<RecipeEntity>> asResource(List<RecipeEntity> entities, Class controller) {
-        List<Resource<RecipeEntity>> resources = entities.stream()
-                .map(recipeMapper::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(resources, linkTo(controller).withSelfRel());
-    }
-
 
     public boolean exists(long recipeId) {
         return recipeDAO.existsById(recipeId);

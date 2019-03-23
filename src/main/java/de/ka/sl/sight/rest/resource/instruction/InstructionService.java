@@ -5,15 +5,10 @@ import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * @author Sebastian Luther (@url(https://github.com/luthesebas))
@@ -28,21 +23,6 @@ public class InstructionService {
     //--------------------------------------
     // Methods
     //--------------------------------------
-
-    public Resource<InstructionEntity> asResource(InstructionEntity entity) {
-        return instructionMapper.toResource(entity);
-    }
-
-    public Resources<Resource<InstructionEntity>> asResource(
-            List<InstructionEntity> entities,
-            Class controller, long recipeId
-    ) {
-        List<Resource<InstructionEntity>> resources = entities.stream()
-                .map(instructionMapper::toResource)
-                .collect(Collectors.toList());
-        return new Resources<>(resources, linkTo(controller, recipeId).withSelfRel());
-    }
-
 
     public boolean exists(long instructionId) {
         return instructionDAO.existsById(instructionId);
