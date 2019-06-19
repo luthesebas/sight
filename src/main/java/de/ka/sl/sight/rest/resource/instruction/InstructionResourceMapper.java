@@ -1,8 +1,8 @@
 package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
+import de.ka.sl.sight.rest.resource.config.InstructionConfig;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class InstructionResourceMapper implements IResourceMapper<InstructionEnt
             resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
                     .slash(instructionEntity.getId()).withSelfRel());
             resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
-                    .withRel(Endpoint.INSTRUCTIONS_RESOURCE_NAME));
+                    .withRel(InstructionConfig.NAME));
         }
         return resource;
     }

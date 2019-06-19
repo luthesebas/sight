@@ -1,8 +1,9 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
-import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
+import de.ka.sl.sight.rest.resource.config.InstructionConfig;
+import de.ka.sl.sight.rest.resource.config.RecipeConfig;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,9 @@ public class RecipeResourceMapper implements IResourceMapper<RecipeEntity, Recip
         Resource<RecipeEntity> resource = new Resource<>(recipeEntity);
         resource.add(linkTo(RecipeController.class).slash(recipeEntity.getId()).withSelfRel());
         resource.add(linkTo(InstructionController.class, recipeEntity.getId())
-                .withRel(Endpoint.INSTRUCTIONS_RESOURCE_NAME));
+                .withRel(InstructionConfig.NAME));
         resource.add(linkTo(RecipeController.class)
-                .withRel(Endpoint.RECIPES_RESOURCE_NAME));
+                .withRel(RecipeConfig.NAME));
         return resource;
     }
 

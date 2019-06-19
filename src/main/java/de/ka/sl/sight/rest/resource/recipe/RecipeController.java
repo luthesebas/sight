@@ -1,10 +1,11 @@
 package de.ka.sl.sight.rest.resource.recipe;
 
-import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.resource.UriFactory;
+import de.ka.sl.sight.rest.resource.config.RecipeConfig;
+import de.ka.sl.sight.rest.resource.config.ResourceConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(value = Endpoint.RECIPES)
+@RequestMapping(value = RecipeConfig.ROOT)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class RecipeController {
 
@@ -40,9 +41,9 @@ public final class RecipeController {
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
     }
 
-    @PutMapping(Endpoint.ID)
+    @PutMapping(ResourceConfig.ID)
     public ResponseEntity<?> update(
-            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId,
+            @PathVariable(ResourceConfig.ID_NAME) long recipeId,
             @RequestBody RecipeEntity data
     ) throws URISyntaxException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
@@ -60,9 +61,9 @@ public final class RecipeController {
         }
     }
 
-    @GetMapping(Endpoint.ID)
+    @GetMapping(ResourceConfig.ID)
     public Resource<RecipeEntity> read(
-            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId
+            @PathVariable(ResourceConfig.ID_NAME) long recipeId
     ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
@@ -72,9 +73,9 @@ public final class RecipeController {
         }
     }
 
-    @DeleteMapping(Endpoint.ID)
+    @DeleteMapping(ResourceConfig.ID)
     public ResponseEntity<?> delete(
-            @PathVariable(Endpoint.ID_VAR_NAME) long recipeId
+            @PathVariable(ResourceConfig.ID_NAME) long recipeId
     ) {
         recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();

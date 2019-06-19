@@ -1,10 +1,12 @@
 package de.ka.sl.sight.rest.resource.instruction;
 
-import de.ka.sl.sight.config.Endpoint;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
+import de.ka.sl.sight.rest.resource.config.InstructionConfig;
+import de.ka.sl.sight.rest.resource.config.RecipeConfig;
+import de.ka.sl.sight.rest.resource.config.ResourceConfig;
 import de.ka.sl.sight.rest.resource.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.apache.bcel.generic.Instruction;
@@ -23,7 +25,11 @@ import java.util.Optional;
  * @author Sebastian Luther (https://github.com/luthesebas)
  */
 @RestController
-@RequestMapping(Endpoint.RECIPES_ID + Endpoint.INSTRUCTIONS)
+@RequestMapping(
+    RecipeConfig.ROOT +
+    RecipeConfig.ID_PATH +
+    InstructionConfig.ROOT
+)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class InstructionController {
 
@@ -45,7 +51,7 @@ public final class InstructionController {
 
     @PostMapping()
     public ResponseEntity<?> create(
-            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
+            @PathVariable(RecipeConfig.ID_NAME) long recipeId,
             @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
@@ -58,10 +64,10 @@ public final class InstructionController {
         }
     }
 
-    @PutMapping(Endpoint.ID)
+    @PutMapping(ResourceConfig.ID)
     public ResponseEntity<?> update(
-            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
-            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId,
+            @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+            @PathVariable(ResourceConfig.ID_NAME) long instructionId,
             @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> optional = recipeService.read(recipeId);
@@ -76,7 +82,7 @@ public final class InstructionController {
 
     @GetMapping()
     public Resources<Resource<InstructionEntity>> read(
-            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId
+            @PathVariable(RecipeConfig.ID_NAME) long recipeId
     ) throws NotFoundException {
         List<InstructionEntity> instructions = instructionService.read(recipeId);
         if (instructions != null && !instructions.isEmpty()) {
@@ -86,10 +92,10 @@ public final class InstructionController {
         }
     }
 
-    @GetMapping(Endpoint.ID)
+    @GetMapping(ResourceConfig.ID)
     public Resource<InstructionEntity> read(
-            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
-            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId
+            @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+            @PathVariable(ResourceConfig.ID_NAME) long instructionId
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
         if (optional.isPresent()) {
@@ -99,10 +105,10 @@ public final class InstructionController {
         }
     }
 
-    @DeleteMapping(Endpoint.ID)
+    @DeleteMapping(ResourceConfig.ID)
     public ResponseEntity<?> delete(
-            @PathVariable(Endpoint.RECIPES_ID_VAR_NAME) long recipeId,
-            @PathVariable(Endpoint.ID_VAR_NAME) long instructionId
+            @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+            @PathVariable(ResourceConfig.ID_NAME) long instructionId
     ) {
         instructionService.delete(instructionId, recipeId);
         return ResponseEntity.noContent().build();
