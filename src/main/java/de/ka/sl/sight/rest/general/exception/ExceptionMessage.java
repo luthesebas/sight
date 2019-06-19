@@ -2,16 +2,13 @@ package de.ka.sl.sight.rest.general.exception;
 
 import lombok.Data;
 
-/**
- * @author Sebastian Luther (@url(https://github.com/luthesebas))
- */
+/** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
 @Data
 public class ExceptionMessage {
 
-   private final String message;
+    private final String message;
 
-   public ExceptionMessage (String message) {
-      this.message = message;
-   }
-
+    public ExceptionMessage (String message) {
+        this.message = message;
+    }
 }

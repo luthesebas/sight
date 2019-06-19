@@ -17,67 +17,58 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Sebastian Luther (https://github.com/luthesebas)
- */
+/** @author Sebastian Luther (https://github.com/luthesebas) */
 @RestController
 @RequestMapping(value = RecipeConfig.ROOT)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class RecipeController {
 
-   private final RecipeService recipeService;
-   private final RecipeResourceMapper mapper;
+    private final RecipeService recipeService;
+    private final RecipeResourceMapper mapper;
 
-   //--------------------------------------
-   // Methods
-   //--------------------------------------
+    // --------------------------------------
+    // Methods
+    // --------------------------------------
 
-   @PostMapping
-   public ResponseEntity<?> create (
-      @RequestBody RecipeEntity data
-   ) throws URISyntaxException {
-      RecipeEntity recipe = recipeService.create(data);
-      Resource<RecipeEntity> resource = mapper.toResource(recipe);
-      return ResponseEntity.created(UriFactory.of(resource)).body(resource);
-   }
+    @PostMapping
+    public ResponseEntity<?> create (@RequestBody RecipeEntity data) throws URISyntaxException {
+        RecipeEntity recipe = recipeService.create(data);
+        Resource<RecipeEntity> resource = mapper.toResource(recipe);
+        return ResponseEntity.created(UriFactory.of(resource)).body(resource);
+    }
 
-   @PutMapping(ResourceConfig.ID)
-   public ResponseEntity<?> update (
-      @PathVariable(ResourceConfig.ID_NAME) long recipeId, @RequestBody RecipeEntity data
-   ) throws URISyntaxException {
-      RecipeEntity recipe = recipeService.update(recipeId, data);
-      Resource<RecipeEntity> resource = mapper.toResource(recipe);
-      return ResponseEntity.created(UriFactory.of(resource)).body(resource);
-   }
+    @PutMapping(ResourceConfig.ID)
+    public ResponseEntity<?> update (
+        @PathVariable(ResourceConfig.ID_NAME) long recipeId, @RequestBody RecipeEntity data
+    ) throws URISyntaxException {
+        RecipeEntity recipe = recipeService.update(recipeId, data);
+        Resource<RecipeEntity> resource = mapper.toResource(recipe);
+        return ResponseEntity.created(UriFactory.of(resource)).body(resource);
+    }
 
-   @GetMapping
-   public Resources<Resource<RecipeEntity>> read () throws NotFoundException {
-      List<RecipeEntity> recipes = recipeService.read();
-      if (recipes != null && !recipes.isEmpty()) {
-         return mapper.toResource(recipes, RecipeController.class);
-      } else {
-         throw new NotFoundException(RecipeEntity.class);
-      }
-   }
+    @GetMapping
+    public Resources<Resource<RecipeEntity>> read () throws NotFoundException {
+        List<RecipeEntity> recipes = recipeService.read();
+        if (recipes != null && !recipes.isEmpty()) {
+            return mapper.toResource(recipes, RecipeController.class);
+        } else {
+            throw new NotFoundException(RecipeEntity.class);
+        }
+    }
 
-   @GetMapping(ResourceConfig.ID)
-   public Resource<RecipeEntity> read (
-      @PathVariable(ResourceConfig.ID_NAME) long recipeId
-   ) throws AppException {
-      Optional<RecipeEntity> recipe = recipeService.read(recipeId);
-      if (recipe.isPresent()) {
-         return mapper.toResource(recipe.get());
-      } else {
-         throw new NotFoundException(RecipeEntity.class, recipeId);
-      }
-   }
+    @GetMapping(ResourceConfig.ID)
+    public Resource<RecipeEntity> read (@PathVariable(ResourceConfig.ID_NAME) long recipeId) throws AppException {
+        Optional<RecipeEntity> recipe = recipeService.read(recipeId);
+        if (recipe.isPresent()) {
+            return mapper.toResource(recipe.get());
+        } else {
+            throw new NotFoundException(RecipeEntity.class, recipeId);
+        }
+    }
 
-   @DeleteMapping(ResourceConfig.ID)
-   public ResponseEntity<?> delete (
-      @PathVariable(ResourceConfig.ID_NAME) long recipeId
-   ) {
-      recipeService.delete(recipeId);
-      return ResponseEntity.noContent().build();
-   }
-
+    @DeleteMapping(ResourceConfig.ID)
+    public ResponseEntity<?> delete (@PathVariable(ResourceConfig.ID_NAME) long recipeId) {
+        recipeService.delete(recipeId);
+        return ResponseEntity.noContent().build();
+    }
 }
