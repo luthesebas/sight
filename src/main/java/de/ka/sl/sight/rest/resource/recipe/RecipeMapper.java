@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public final class RecipeMapper implements IMapper<RecipeEntity, RecipeEntity> {
 
-    @Override
-    public RecipeEntity mapToModel(RecipeEntity model) {
-        return model;
-    }
+   @Override
+   public RecipeEntity mapToModel (RecipeEntity model) {
+      return model;
+   }
 
 }

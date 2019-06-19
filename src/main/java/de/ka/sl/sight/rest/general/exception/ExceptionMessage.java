@@ -8,14 +8,10 @@ import lombok.Data;
 @Data
 public class ExceptionMessage {
 
-    private final String message;
+   private final String message;
 
-    //--------------------------------------
-    // Constructors
-    //--------------------------------------
-
-    public ExceptionMessage(String message) {
-        this.message = message;
-    }
+   public ExceptionMessage (String message) {
+      this.message = message;
+   }
 
 }

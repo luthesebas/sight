@@ -18,49 +18,49 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public final class AppExceptionAdvice {
 
-    private ExceptionMessage mapToModel(Exception ex) {
-        //ex.printStackTrace();
-        return new ExceptionMessage(ex.getMessage());
-    }
+   private ExceptionMessage mapToMessage (Exception ex) {
+      //ex.printStackTrace();
+      return new ExceptionMessage(ex.getMessage());
+   }
 
-    private ExceptionMessage mapToModel(String message) {
-        return new ExceptionMessage(message);
-    }
+   private ExceptionMessage mapToMessage (String message) {
+      return new ExceptionMessage(message);
+   }
 
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionMessage handel(NotFoundException ex) {
-        return mapToModel(ex);
-    }
+   @ExceptionHandler(NotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   public ExceptionMessage handel (NotFoundException ex) {
+      return mapToMessage(ex);
+   }
 
-    @ExceptionHandler(JsonMappingException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage handel(JsonMappingException ex) {
-        return mapToModel(ex);
-    }
+   @ExceptionHandler(JsonMappingException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
+   public ExceptionMessage handel (JsonMappingException ex) {
+      return mapToMessage(ex);
+   }
 
-    @ExceptionHandler(JsonProcessingException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage handel(JsonProcessingException ex) {
-        return mapToModel(ex);
-    }
+   @ExceptionHandler(JsonProcessingException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
+   public ExceptionMessage handel (JsonProcessingException ex) {
+      return mapToMessage(ex);
+   }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage handel(HttpMessageNotReadableException ex) {
-        return mapToModel(ex);
-    }
+   @ExceptionHandler(HttpMessageNotReadableException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
+   public ExceptionMessage handel (HttpMessageNotReadableException ex) {
+      return mapToMessage(ex);
+   }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionMessage handel(Exception ex, WebRequest request) {
-        ex.printStackTrace();
-        return mapToModel("Oops... something went wrong on our end. Sorry!");
-    }
+   @ExceptionHandler(Exception.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+   public ExceptionMessage handel (Exception ex, WebRequest request) {
+      ex.printStackTrace();
+      return mapToMessage("Oops... something went wrong on our end. Sorry!");
+   }
 
 }

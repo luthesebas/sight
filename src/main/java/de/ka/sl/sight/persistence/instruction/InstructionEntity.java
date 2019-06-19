@@ -24,36 +24,28 @@ import javax.persistence.Table;
 @Table(name = "instruction")
 public final class InstructionEntity extends IEntity {
 
-    private int step;
-    private String description;
-    private int durationInSeconds;
+   private int step;
+   private String description;
+   private int durationInSeconds;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private RecipeEntity recipe;
+   @JsonIgnore
+   @ManyToOne(fetch = FetchType.LAZY)
+   @OnDelete(action = OnDeleteAction.CASCADE)
+   private RecipeEntity recipe;
 
-    //--------------------------------------
-    // Constructors
-    //--------------------------------------
+   public InstructionEntity () {
+   }
 
-    public InstructionEntity() {
-    }
+   public InstructionEntity (int step, String description, int durationInSeconds) {
+      this.step = step;
+      this.description = description;
+      this.durationInSeconds = durationInSeconds;
+   }
 
-    public InstructionEntity(int step, String description, int durationInSeconds) {
-        this.step = step;
-        this.description = description;
-        this.durationInSeconds = durationInSeconds;
-    }
-
-    //--------------------------------------
-    // Methods
-    //--------------------------------------
-
-    public void updateFrom(InstructionEntity newInstructionEntity) {
-        step = newInstructionEntity.step;
-        description = newInstructionEntity.description;
-        durationInSeconds = newInstructionEntity.durationInSeconds;
-    }
+   public void updateFrom (InstructionEntity newInstructionEntity) {
+      step = newInstructionEntity.step;
+      description = newInstructionEntity.description;
+      durationInSeconds = newInstructionEntity.durationInSeconds;
+   }
 
 }

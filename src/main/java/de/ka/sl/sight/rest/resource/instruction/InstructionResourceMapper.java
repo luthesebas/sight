@@ -14,16 +14,17 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Component
 public class InstructionResourceMapper implements IResourceMapper<InstructionEntity, InstructionEntity> {
 
-    @Override
-    public Resource<InstructionEntity> toResource(InstructionEntity instructionEntity) {
-        Resource<InstructionEntity> resource = new Resource<>(instructionEntity);
-        if (instructionEntity.getRecipe() != null) {
-            resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
-                    .slash(instructionEntity.getId()).withSelfRel());
-            resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
-                    .withRel(InstructionConfig.NAME));
-        }
-        return resource;
-    }
+   @Override
+   public Resource<InstructionEntity> toResource (InstructionEntity instructionEntity) {
+      Resource<InstructionEntity> resource = new Resource<>(instructionEntity);
+      if (instructionEntity.getRecipe() != null) {
+         resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId())
+            .slash(instructionEntity.getId())
+            .withSelfRel());
+         resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId()).withRel(
+            InstructionConfig.NAME));
+      }
+      return resource;
+   }
 
 }

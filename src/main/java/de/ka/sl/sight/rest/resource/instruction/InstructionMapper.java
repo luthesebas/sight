@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public final class InstructionMapper implements IMapper<InstructionEntity, InstructionEntity> {
 
-    @Override
-    public InstructionEntity mapToModel(InstructionEntity model) {
-        return model;
-    }
+   @Override
+   public InstructionEntity mapToModel (InstructionEntity model) {
+      return model;
+   }
 
 }

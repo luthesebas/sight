@@ -10,12 +10,10 @@ import java.util.stream.Collectors;
  */
 public interface IMapper<M extends IEntity, N> {
 
-    N mapToModel(M model);
+   N mapToModel (M model);
 
-    default List<N> mapToModel(List<M> models) {
-        return models.stream()
-                .map(this::mapToModel)
-                .collect(Collectors.toList());
-    }
+   default List<N> mapToModel (List<M> models) {
+      return models.stream().map(this::mapToModel).collect(Collectors.toList());
+   }
 
 }

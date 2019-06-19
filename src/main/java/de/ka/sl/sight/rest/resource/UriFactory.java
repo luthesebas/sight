@@ -10,16 +10,10 @@ import java.net.URISyntaxException;
  */
 public class UriFactory {
 
-    private UriFactory() {
+   private UriFactory () {}
 
-    }
-
-    //--------------------------------------
-    // Methods
-    //--------------------------------------
-
-    public static <T> URI of(Resource<T> resource) throws URISyntaxException {
-        return new URI(resource.getId().expand().getHref());
-    }
+   public static <T> URI of (Resource<T> resource) throws URISyntaxException {
+      return new URI(resource.getId().expand().getHref());
+   }
 
 }

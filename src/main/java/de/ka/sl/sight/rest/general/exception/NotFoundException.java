@@ -5,17 +5,12 @@ package de.ka.sl.sight.rest.general.exception;
  */
 public class NotFoundException extends AppException {
 
-    public NotFoundException(Class clazz, long id) {
-        super(String.format(
-                "Could not find %s with id '%s'.",
-                clazz.getSimpleName().toLowerCase(), id
-        ));
-    }
+   public NotFoundException (Class clazz, long id) {
+      super("Could not find a " + clazz.getSimpleName().toLowerCase() + " with id " + id);
+   }
 
-    public NotFoundException(Class clazz) {
-        super(String.format(
-                "Could not find any %s",
-                clazz.getSimpleName().toLowerCase())
-        );
-    }
+   public NotFoundException (Class clazz) {
+      super("Could not find any " + clazz.getSimpleName().toLowerCase());
+   }
+
 }
