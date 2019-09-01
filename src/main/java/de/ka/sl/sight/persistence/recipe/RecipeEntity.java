@@ -13,7 +13,7 @@ import java.util.List;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Data
-@ToString(exclude = {"instructions"})
+@ToString(callSuper = true, exclude = {"instructions"})
 @EqualsAndHashCode(callSuper = true, exclude = {"instructions"})
 @Entity
 @Table(name = "recipe")
