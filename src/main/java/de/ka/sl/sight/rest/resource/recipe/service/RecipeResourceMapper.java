@@ -1,10 +1,11 @@
-package de.ka.sl.sight.rest.resource.recipe;
+package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
 import de.ka.sl.sight.rest.resource.config.InstructionConfig;
 import de.ka.sl.sight.rest.resource.config.RecipeConfig;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
+import de.ka.sl.sight.rest.resource.recipe.RecipeController;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 

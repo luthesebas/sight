@@ -1,8 +1,9 @@
-package de.ka.sl.sight.rest.resource.instruction;
+package de.ka.sl.sight.rest.resource.instruction.service;
 
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
+import de.ka.sl.sight.rest.resource.instruction.service.InstructionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

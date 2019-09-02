@@ -6,6 +6,8 @@ import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.resource.UriFactory;
 import de.ka.sl.sight.rest.resource.config.RecipeConfig;
 import de.ka.sl.sight.rest.resource.config.ResourceConfig;
+import de.ka.sl.sight.rest.resource.recipe.service.RecipeResourceMapper;
+import de.ka.sl.sight.rest.resource.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;

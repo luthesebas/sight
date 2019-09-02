@@ -1,8 +1,8 @@
-package de.ka.sl.sight.rest.resource.recipe;
+package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.resource.IModelMapper;
-import de.ka.sl.sight.rest.resource.instruction.InstructionMapper;
+import de.ka.sl.sight.rest.resource.instruction.service.InstructionMapper;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

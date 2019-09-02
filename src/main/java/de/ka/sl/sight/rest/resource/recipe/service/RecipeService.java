@@ -1,7 +1,8 @@
-package de.ka.sl.sight.rest.resource.recipe;
+package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
+import de.ka.sl.sight.rest.resource.recipe.service.RecipeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

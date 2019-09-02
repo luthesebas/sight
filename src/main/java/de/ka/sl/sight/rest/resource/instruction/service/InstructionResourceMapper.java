@@ -1,8 +1,9 @@
-package de.ka.sl.sight.rest.resource.instruction;
+package de.ka.sl.sight.rest.resource.instruction.service;
 
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
 import de.ka.sl.sight.rest.resource.config.InstructionConfig;
+import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Component;
 

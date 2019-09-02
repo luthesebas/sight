@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.resource.instruction;
+package de.ka.sl.sight.rest.resource.instruction.service;
 
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.rest.resource.IModelMapper;
