@@ -35,12 +35,17 @@ public class RecipeService {
 
     public RecipeEntity update (long recipeId, RecipeEntity data) {
         return read(recipeId).map(recipe -> {
-            recipe.updateFrom(data);
+            update(recipe, data);
             return create(recipe);
         }).orElseGet(() -> {
             // data.setId(id);
             return create(data);
         });
+    }
+
+    private void update (RecipeEntity target, RecipeEntity source) {
+        target.setTitle(source.getTitle());
+        target.setDescription(source.getDescription());
     }
 
     public List<RecipeEntity> read () {
