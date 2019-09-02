@@ -3,9 +3,11 @@ package de.ka.sl.sight.rest.resource.recipe;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
+import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.UriFactory;
 import de.ka.sl.sight.rest.resource.config.RecipeConfig;
 import de.ka.sl.sight.rest.resource.config.ResourceConfig;
+import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.service.RecipeResourceMapper;
 import de.ka.sl.sight.rest.resource.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +32,8 @@ public final class RecipeController {
 
     @PostMapping
     public ResponseEntity<?> create (
-        @RequestBody RecipeEntity data
-    ) throws URISyntaxException {
+        @RequestBody CreateRecipe data
+    ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.create(data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
@@ -48,7 +50,7 @@ public final class RecipeController {
     }
 
     @GetMapping
-    public Resources<Resource<RecipeEntity>> read() throws NotFoundException {
+    public Resources<Resource<RecipeEntity>> read () throws NotFoundException {
         List<RecipeEntity> recipes = recipeService.read();
         if (recipes != null && !recipes.isEmpty()) {
             return mapper.toResource(recipes, RecipeController.class);
@@ -58,7 +60,9 @@ public final class RecipeController {
     }
 
     @GetMapping(ResourceConfig.ID)
-    public Resource<RecipeEntity> read (@PathVariable(ResourceConfig.ID_NAME) long recipeId) throws AppException {
+    public Resource<RecipeEntity> read (
+        @PathVariable(ResourceConfig.ID_NAME) long recipeId
+    ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
             return mapper.toResource(recipe.get());
@@ -68,7 +72,9 @@ public final class RecipeController {
     }
 
     @DeleteMapping(ResourceConfig.ID)
-    public ResponseEntity<?> delete (@PathVariable(ResourceConfig.ID_NAME) long recipeId) {
+    public ResponseEntity<?> delete (
+        @PathVariable(ResourceConfig.ID_NAME) long recipeId
+    ) {
         recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();
     }

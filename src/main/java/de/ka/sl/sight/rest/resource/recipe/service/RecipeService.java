@@ -2,9 +2,12 @@ package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
+import de.ka.sl.sight.rest.general.exception.UnprocessableException;
+import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,20 +24,38 @@ public class RecipeService {
         return recipeDAO.existsById(recipeId);
     }
 
-    public RecipeEntity create (RecipeEntity data) {
-        return recipeDAO.save(data);
+    public boolean isValid (CreateRecipe data) {
+        //TODO Implement isValid
+        return true;
     }
 
+    @Transactional
+    public RecipeEntity create (CreateRecipe data) throws UnprocessableException {
+        if (isValid(data)) {
+            RecipeEntity recipe = recipeMapper.map(data);
+            return save(recipe);
+        } else {
+            throw new UnprocessableException();
+        }
+    }
+
+    @Transactional
+    private RecipeEntity save (RecipeEntity entity) {
+        return recipeDAO.save(entity);
+    }
+
+    @Transactional
     public RecipeEntity update (long recipeId, RecipeEntity data) {
         return read(recipeId).map(recipe -> {
             update(recipe, data);
-            return create(recipe);
+            return save(recipe);
         }).orElseGet(() -> {
             // data.setId(id);
-            return create(data);
+            return save(data);
         });
     }
 
+    @Transactional
     private void update (RecipeEntity target, RecipeEntity source) {
         target.setTitle(source.getTitle());
         target.setDescription(source.getDescription());
@@ -48,6 +69,7 @@ public class RecipeService {
         return recipeDAO.findById(recipeId);
     }
 
+    @Transactional
     public void delete (long recipeId) {
         if (exists(recipeId)) {
             recipeDAO.deleteById(recipeId);
