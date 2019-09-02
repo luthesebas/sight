@@ -31,22 +31,4 @@ public final class RecipeEntity extends IEntity {
         this.instructions = new LinkedList<>();
     }
 
-    public RecipeEntity (String title, String description) {
-        this();
-        this.title = title;
-        this.description = description;
-    }
-
-    public void updateFrom (RecipeEntity recipeEntity) {
-        title = recipeEntity.title;
-        description = recipeEntity.description;
-    }
-
-    public void add (InstructionEntity instructionEntity) {
-        instructions.add(instructionEntity);
-    }
-
-    public void remove (InstructionEntity instructionEntity) {
-        instructions.remove(instructionEntity);
-    }
 }
