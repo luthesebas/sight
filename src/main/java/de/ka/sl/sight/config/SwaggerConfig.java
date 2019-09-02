@@ -18,7 +18,7 @@ import java.util.Collections;
 public class SwaggerConfig {
 
     @Bean
-    public Docket api() {
+    public Docket api () {
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
             .apis(RequestHandlerSelectors.basePackage("de.ka.sl.sight"))
@@ -27,7 +27,7 @@ public class SwaggerConfig {
             .apiInfo(apiInfo());
     }
 
-    private ApiInfo apiInfo() {
+    private ApiInfo apiInfo () {
         return new ApiInfo(
             "sight REST API",
             "This is the official sight REST API.",

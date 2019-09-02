@@ -2,6 +2,7 @@ package de.ka.sl.sight.rest.general;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.ExceptionMessage;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,13 @@ public final class AppExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionMessage handel (HttpMessageNotReadableException ex) {
         return mapToMessage(ex);
+    }
+
+    @ExceptionHandler(AppException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ExceptionMessage handel (AppException ex) {
+        return mapToMessage(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

@@ -31,6 +31,6 @@ public final class InstructionEntity extends IEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private RecipeEntity recipe;
 
-    public InstructionEntity() {}
+    public InstructionEntity () {}
 
 }

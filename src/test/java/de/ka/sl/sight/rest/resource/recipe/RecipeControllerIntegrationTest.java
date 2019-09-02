@@ -27,7 +27,7 @@ public class RecipeControllerIntegrationTest {
     private MockMvc mvc;
 
     @Test
-    public void createRecipe() throws Exception {
+    public void createRecipe () throws Exception {
         String title = "Title";
         String description = "Description";
         mvc.perform(
@@ -47,7 +47,7 @@ public class RecipeControllerIntegrationTest {
         return recipe;
     }
 
-    private static String asJsonString(final Object obj) {
+    private static String asJsonString (final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {

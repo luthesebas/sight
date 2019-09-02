@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface InstructionDAO extends JpaRepository<InstructionEntity, Long> {
 
-    List<InstructionEntity> findAllByRecipeId(long recipeId);
+    List<InstructionEntity> findAllByRecipeId (long recipeId);
 
-    Optional<InstructionEntity> findByIdAndRecipeId(long id, long recipeId);
+    Optional<InstructionEntity> findByIdAndRecipeId (long id, long recipeId);
 
 }
