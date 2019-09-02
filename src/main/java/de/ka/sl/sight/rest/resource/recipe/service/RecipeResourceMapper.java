@@ -23,4 +23,5 @@ public class RecipeResourceMapper implements IResourceMapper<RecipeEntity, Recip
         resource.add(linkTo(RecipeController.class).withRel(RecipeConfig.NAME));
         return resource;
     }
+
 }

@@ -10,4 +10,5 @@ public class NotFoundException extends AppException {
     public NotFoundException (Class clazz) {
         super("Could not find any " + clazz.getSimpleName().toLowerCase());
     }
+
 }

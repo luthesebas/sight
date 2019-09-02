@@ -11,4 +11,5 @@ public class ExceptionMessage {
     public ExceptionMessage (String message) {
         this.message = message;
     }
+
 }

@@ -8,4 +8,5 @@ public class RecipeConfig extends ResourceConfig {
 
     public static final String ID_NAME = "recipeId";
     public static final String ID_PATH = "/{" + ID_NAME + ":" + ID_PATTERN + "}";
+
 }

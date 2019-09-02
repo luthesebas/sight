@@ -27,7 +27,7 @@ public final class RecipeEntity extends IEntity {
     @JoinColumn(referencedColumnName = "id")
     private List<InstructionEntity> instructions;
 
-    public RecipeEntity () {
+    public RecipeEntity() {
         this.instructions = new LinkedList<>();
     }
 

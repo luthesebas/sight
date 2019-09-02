@@ -39,7 +39,8 @@ public final class InstructionController {
 
     @PostMapping()
     public ResponseEntity<?> create (
-        @PathVariable(RecipeConfig.ID_NAME) long recipeId, @RequestBody InstructionEntity data
+        @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+        @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
@@ -81,7 +82,8 @@ public final class InstructionController {
 
     @GetMapping(ResourceConfig.ID)
     public Resource<InstructionEntity> read (
-        @PathVariable(RecipeConfig.ID_NAME) long recipeId, @PathVariable(ResourceConfig.ID_NAME) long instructionId
+        @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+        @PathVariable(ResourceConfig.ID_NAME) long instructionId
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
         if (optional.isPresent()) {
@@ -93,9 +95,11 @@ public final class InstructionController {
 
     @DeleteMapping(ResourceConfig.ID)
     public ResponseEntity<?> delete (
-        @PathVariable(RecipeConfig.ID_NAME) long recipeId, @PathVariable(ResourceConfig.ID_NAME) long instructionId
+        @PathVariable(RecipeConfig.ID_NAME) long recipeId,
+        @PathVariable(ResourceConfig.ID_NAME) long instructionId
     ) {
         instructionService.delete(instructionId, recipeId);
         return ResponseEntity.noContent().build();
     }
+
 }

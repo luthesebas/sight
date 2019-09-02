@@ -8,4 +8,5 @@ public class InstructionConfig extends ResourceConfig {
 
     public static final String ID_NAME = "instructionId";
     public static final String ID_PATH = "/{" + ID_NAME + ":" + ID_PATTERN + "}";
+
 }

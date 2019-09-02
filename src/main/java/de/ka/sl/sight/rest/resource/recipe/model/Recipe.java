@@ -4,8 +4,6 @@ import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-
 import java.util.List;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */

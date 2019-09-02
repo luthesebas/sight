@@ -60,4 +60,5 @@ public final class AppExceptionAdvice {
         ex.printStackTrace();
         return mapToMessage("Oops... something went wrong on our end. Sorry!");
     }
+
 }

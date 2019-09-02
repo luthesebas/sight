@@ -2,7 +2,6 @@ package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-import de.ka.sl.sight.rest.resource.recipe.service.RecipeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +17,9 @@ public class RecipeService {
     private final RecipeDAO recipeDAO;
     private final RecipeMapper recipeMapper;
 
-    // --------------------------------------
-    // Methods
-    // --------------------------------------
-
     public boolean exists (long recipeId) {
         return recipeDAO.existsById(recipeId);
     }
-
-    // --------------------------------------
-    // CRUD
-    // --------------------------------------
 
     public RecipeEntity create (RecipeEntity data) {
         return recipeDAO.save(data);
@@ -62,4 +53,5 @@ public class RecipeService {
             recipeDAO.deleteById(recipeId);
         }
     }
+
 }

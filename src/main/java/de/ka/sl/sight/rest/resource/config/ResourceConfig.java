@@ -7,4 +7,5 @@ public class ResourceConfig {
 
     public static final String ID = "/{id:[0-9]+}";
     public static final String ID_NAME = "id";
+
 }

@@ -28,12 +28,10 @@ public final class RecipeController {
     private final RecipeService recipeService;
     private final RecipeResourceMapper mapper;
 
-    // --------------------------------------
-    // Methods
-    // --------------------------------------
-
     @PostMapping
-    public ResponseEntity<?> create (@RequestBody RecipeEntity data) throws URISyntaxException {
+    public ResponseEntity<?> create (
+        @RequestBody RecipeEntity data
+    ) throws URISyntaxException {
         RecipeEntity recipe = recipeService.create(data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
@@ -41,7 +39,8 @@ public final class RecipeController {
 
     @PutMapping(ResourceConfig.ID)
     public ResponseEntity<?> update (
-        @PathVariable(ResourceConfig.ID_NAME) long recipeId, @RequestBody RecipeEntity data
+        @PathVariable(ResourceConfig.ID_NAME) long recipeId,
+        @RequestBody RecipeEntity data
     ) throws URISyntaxException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
@@ -49,7 +48,7 @@ public final class RecipeController {
     }
 
     @GetMapping
-    public Resources<Resource<RecipeEntity>> read () throws NotFoundException {
+    public Resources<Resource<RecipeEntity>> read() throws NotFoundException {
         List<RecipeEntity> recipes = recipeService.read();
         if (recipes != null && !recipes.isEmpty()) {
             return mapper.toResource(recipes, RecipeController.class);
@@ -73,4 +72,5 @@ public final class RecipeController {
         recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();
     }
+
 }

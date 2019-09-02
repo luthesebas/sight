@@ -13,4 +13,5 @@ public class UriFactory {
     public static <T> URI of (Resource<T> resource) throws URISyntaxException {
         return new URI(resource.getId().expand().getHref());
     }
+
 }
