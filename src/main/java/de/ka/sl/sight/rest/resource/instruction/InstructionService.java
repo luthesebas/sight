@@ -34,13 +34,19 @@ public class InstructionService {
 
     public InstructionEntity update (long instructionId, InstructionEntity data, RecipeEntity recipe) {
         return read(instructionId, recipe.getId()).map(instruction -> {
-            instruction.updateFrom(data);
+            update(instruction, data);
             return create(instruction);
         }).orElseGet(() -> {
             // data.setId(id);
             data.setRecipe(recipe);
             return create(data);
         });
+    }
+
+    private void update (InstructionEntity target, InstructionEntity source) {
+        target.setStep(source.getStep());
+        target.setDescription(source.getDescription());
+        target.setDurationInSeconds(source.getDurationInSeconds());
     }
 
     public List<InstructionEntity> read (long recipeId) {
