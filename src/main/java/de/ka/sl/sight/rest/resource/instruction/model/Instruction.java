@@ -2,7 +2,7 @@ package de.ka.sl.sight.rest.resource.instruction.model;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Data
@@ -14,8 +14,8 @@ public class Instruction {
     private String description;
     private int durationInSeconds;
 
-    private Date modifiedDate;
+    private LocalDateTime modifiedDate;
     private String createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -25,16 +27,15 @@ public abstract class Auditable<T> {
     protected T modifiedBy;
 
     @LastModifiedDate
-    @Temporal(TIMESTAMP)
-    protected Date modifiedDate;
+    @Column(columnDefinition = "TIMESTAMP")
+    protected LocalDateTime modifiedDate;
 
     @Column(nullable = false, updatable = false)
     @CreatedBy
     protected T createdBy;
 
-    @Column(nullable = false, updatable = false)
     @CreatedDate
-    @Temporal(TIMESTAMP)
-    protected Date createdDate;
+    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP")
+    protected LocalDateTime createdDate;
 
 }

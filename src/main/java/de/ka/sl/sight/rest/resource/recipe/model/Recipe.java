@@ -3,7 +3,9 @@ package de.ka.sl.sight.rest.resource.recipe.model;
 import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+
 import java.util.List;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
@@ -16,8 +18,8 @@ public class Recipe {
     private String description;
     private List<Instruction> instructions;
 
-    private Date modifiedDate;
+    private LocalDateTime modifiedDate;
     private String createdBy;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
 }
