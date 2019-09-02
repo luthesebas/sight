@@ -33,15 +33,4 @@ public final class InstructionEntity extends IEntity {
 
     public InstructionEntity () {}
 
-    public InstructionEntity (int step, String description, int durationInSeconds) {
-        this.step = step;
-        this.description = description;
-        this.durationInSeconds = durationInSeconds;
-    }
-
-    public void updateFrom (InstructionEntity newInstructionEntity) {
-        step = newInstructionEntity.step;
-        description = newInstructionEntity.description;
-        durationInSeconds = newInstructionEntity.durationInSeconds;
-    }
 }
