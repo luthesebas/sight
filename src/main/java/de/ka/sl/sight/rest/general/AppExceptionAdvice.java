@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.ExceptionMessage;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
+import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -52,6 +53,11 @@ public final class AppExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionMessage handel (HttpMessageNotReadableException ex) {
         return mapToMessage(ex);
+    }
+
+    @ExceptionHandler(ClientAbortException.class)
+    public void handel(ClientAbortException ex) {
+        //do nothing...
     }
 
     @ExceptionHandler(AppException.class)
