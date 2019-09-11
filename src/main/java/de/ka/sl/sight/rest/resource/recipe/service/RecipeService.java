@@ -20,20 +20,16 @@ public class RecipeService {
 
     private final RecipeDAO recipeDAO;
     private final RecipeMapper recipeMapper;
+    private final RecipeValidator recipeValidator;
 
     @Transactional(readOnly = true)
     public boolean exists (long recipeId) {
         return recipeDAO.existsById(recipeId);
     }
 
-    public boolean isValid (CreateRecipe data) {
-        //TODO Implement isValid
-        return true;
-    }
-
     @Transactional
     public RecipeEntity create (CreateRecipe data) throws UnprocessableException {
-        if (isValid(data)) {
+        if (recipeValidator.isValid(data)) {
             RecipeEntity recipe = recipeMapper.map(data);
             return save(recipe);
         } else {
