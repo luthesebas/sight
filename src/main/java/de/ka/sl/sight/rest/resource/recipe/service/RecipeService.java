@@ -4,10 +4,10 @@ import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
+import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,8 +30,19 @@ public class RecipeService {
     @Transactional
     public RecipeEntity create (CreateRecipe data) throws UnprocessableException {
         if (recipeValidator.isValid(data)) {
-            RecipeEntity recipe = recipeMapper.map(data);
-            return save(recipe);
+            RecipeEntity recipeToCreate = recipeMapper.map(data);
+            return save(recipeToCreate);
+        } else {
+            throw new UnprocessableException();
+        }
+    }
+
+    @Transactional
+    public RecipeEntity update (long recipeId, UpdateRecipe data) throws UnprocessableException {
+        if (recipeValidator.isValid(data)) {
+            RecipeEntity recipeToUpdate = recipeMapper.map(data);
+            recipeToUpdate.setId(recipeId);
+            return save(recipeToUpdate);
         } else {
             throw new UnprocessableException();
         }
@@ -40,23 +51,6 @@ public class RecipeService {
     @Transactional
     private RecipeEntity save (RecipeEntity entity) {
         return recipeDAO.save(entity);
-    }
-
-    @Transactional
-    public RecipeEntity update (long recipeId, RecipeEntity data) {
-        return read(recipeId).map(recipe -> {
-            update(recipe, data);
-            return save(recipe);
-        }).orElseGet(() -> {
-            // data.setId(id);
-            return save(data);
-        });
-    }
-
-    @Transactional(propagation = Propagation.MANDATORY) // An opened transaction must already exist
-    private void update (RecipeEntity target, RecipeEntity source) {
-        target.setTitle(source.getTitle());
-        target.setDescription(source.getDescription());
     }
 
     @Transactional(readOnly = true)

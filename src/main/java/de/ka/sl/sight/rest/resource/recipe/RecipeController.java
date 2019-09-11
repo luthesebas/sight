@@ -8,6 +8,7 @@ import de.ka.sl.sight.rest.resource.UriFactory;
 import de.ka.sl.sight.rest.resource.config.RecipeConfig;
 import de.ka.sl.sight.rest.resource.config.ResourceConfig;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
+import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.service.RecipeResourceMapper;
 import de.ka.sl.sight.rest.resource.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,8 @@ public final class RecipeController {
     @PutMapping(ResourceConfig.ID)
     public ResponseEntity<?> update (
         @PathVariable(ResourceConfig.ID_NAME) long recipeId,
-        @RequestBody RecipeEntity data
-    ) throws URISyntaxException {
+        @RequestBody UpdateRecipe data
+    ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
