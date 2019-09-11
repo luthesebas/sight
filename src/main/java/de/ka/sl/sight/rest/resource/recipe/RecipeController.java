@@ -47,7 +47,11 @@ public final class RecipeController {
     ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
-        return ResponseEntity.created(UriFactory.of(resource)).body(resource);
+        if (recipe.getId() != recipeId) {
+            return ResponseEntity.created(UriFactory.of(resource)).body(resource);
+        } else {
+            return ResponseEntity.ok(resource);
+        }
     }
 
     @GetMapping
