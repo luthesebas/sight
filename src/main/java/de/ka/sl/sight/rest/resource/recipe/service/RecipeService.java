@@ -7,6 +7,7 @@ import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class RecipeService {
     private final RecipeDAO recipeDAO;
     private final RecipeMapper recipeMapper;
 
+    @Transactional(readOnly = true)
     public boolean exists (long recipeId) {
         return recipeDAO.existsById(recipeId);
     }
@@ -55,16 +57,18 @@ public class RecipeService {
         });
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY) // An opened transaction must already exist
     private void update (RecipeEntity target, RecipeEntity source) {
         target.setTitle(source.getTitle());
         target.setDescription(source.getDescription());
     }
 
+    @Transactional(readOnly = true)
     public List<RecipeEntity> read () {
         return recipeDAO.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Optional<RecipeEntity> read (long recipeId) {
         return recipeDAO.findById(recipeId);
     }

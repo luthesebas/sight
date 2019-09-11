@@ -3,9 +3,13 @@ package de.ka.sl.sight.rest.resource.instruction.service;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
+import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,45 +22,62 @@ public class InstructionService {
     private final InstructionDAO instructionDAO;
     private final InstructionMapper instructionMapper;
 
+    @Transactional(readOnly = true)
     public boolean exists (long instructionId) {
         return instructionDAO.existsById(instructionId);
     }
 
-    private InstructionEntity create (InstructionEntity entity) {
+    public boolean isValid (InstructionEntity entity) {
+        //TODO Implement isValid
+        return true;
+    }
+
+    @Transactional
+    public InstructionEntity create (InstructionEntity data, RecipeEntity recipeEntity) throws UnprocessableException {
+        if (isValid(data)) {
+            InstructionEntity instruction = save(data);
+            instruction.setRecipe(recipeEntity);
+            return instruction;
+        } else {
+            throw new UnprocessableException();
+        }
+    }
+
+    @Transactional
+    private InstructionEntity save (InstructionEntity entity) {
         return instructionDAO.save(entity);
     }
 
-    public InstructionEntity create (InstructionEntity data, RecipeEntity recipeEntity) {
-        InstructionEntity instruction = create(data);
-        instruction.setRecipe(recipeEntity);
-        return create(instruction);
-    }
-
+    @Transactional
     public InstructionEntity update (long instructionId, InstructionEntity data, RecipeEntity recipe) {
         return read(instructionId, recipe.getId()).map(instruction -> {
             update(instruction, data);
-            return create(instruction);
+            return save(instruction);
         }).orElseGet(() -> {
             // data.setId(id);
             data.setRecipe(recipe);
-            return create(data);
+            return save(data);
         });
     }
 
+    @Transactional(propagation = Propagation.MANDATORY) // An opened transaction must already exist
     private void update (InstructionEntity target, InstructionEntity source) {
         target.setStep(source.getStep());
         target.setDescription(source.getDescription());
         target.setDurationInSeconds(source.getDurationInSeconds());
     }
 
+    @Transactional(readOnly = true)
     public List<InstructionEntity> read (long recipeId) {
         return instructionDAO.findAllByRecipeId(recipeId);
     }
 
+    @Transactional(readOnly = true)
     public Optional<InstructionEntity> read (long instructionId, long recipeId) {
         return instructionDAO.findByIdAndRecipeId(instructionId, recipeId);
     }
 
+    @Transactional
     public void delete (long instructionId, long recipeId) {
         if (exists(instructionId)) {
             instructionDAO.deleteById(instructionId);
