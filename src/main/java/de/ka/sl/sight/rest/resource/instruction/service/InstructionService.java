@@ -21,20 +21,16 @@ public class InstructionService {
 
     private final InstructionDAO instructionDAO;
     private final InstructionMapper instructionMapper;
+    private final InstructionValidator instructionValidator;
 
     @Transactional(readOnly = true)
     public boolean exists (long instructionId) {
         return instructionDAO.existsById(instructionId);
     }
 
-    public boolean isValid (InstructionEntity entity) {
-        //TODO Implement isValid
-        return true;
-    }
-
     @Transactional
     public InstructionEntity create (InstructionEntity data, RecipeEntity recipeEntity) throws UnprocessableException {
-        if (isValid(data)) {
+        if (instructionValidator.isValid(data)) {
             InstructionEntity instruction = save(data);
             instruction.setRecipe(recipeEntity);
             return instruction;
