@@ -2,8 +2,8 @@ package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
-import de.ka.sl.sight.rest.resource.config.InstructionConfig;
-import de.ka.sl.sight.rest.resource.config.RecipeConfig;
+import de.ka.sl.sight.rest.resource.config.InstructionPattern;
+import de.ka.sl.sight.rest.resource.config.RecipePattern;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import de.ka.sl.sight.rest.resource.recipe.RecipeController;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;
@@ -26,8 +26,8 @@ public class RecipeResourceMapper implements IResourceMapper<RecipeEntity, Recip
         Recipe model = recipeMapper.mapToModel(recipeEntity);
         Resource<Recipe> resource = new Resource<>(model);
         resource.add(linkTo(RecipeController.class).slash(recipeEntity.getId()).withSelfRel());
-        resource.add(linkTo(InstructionController.class, recipeEntity.getId()).withRel(InstructionConfig.RESOURCE_NAME));
-        resource.add(linkTo(RecipeController.class).withRel(RecipeConfig.RESOURCE_NAME));
+        resource.add(linkTo(InstructionController.class, recipeEntity.getId()).withRel(InstructionPattern.RESOURCE_NAME));
+        resource.add(linkTo(RecipeController.class).withRel(RecipePattern.RESOURCE_NAME));
         return resource;
     }
 

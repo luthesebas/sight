@@ -2,7 +2,7 @@ package de.ka.sl.sight.rest.resource.instruction.service;
 
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
-import de.ka.sl.sight.rest.resource.config.InstructionConfig;
+import de.ka.sl.sight.rest.resource.config.InstructionPattern;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class InstructionResourceMapper implements IResourceMapper<InstructionEnt
                 .slash(instructionEntity.getId())
                 .withSelfRel());
             resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId()).withRel(
-                InstructionConfig.RESOURCE_NAME));
+                InstructionPattern.RESOURCE_NAME));
         }
         return resource;
     }

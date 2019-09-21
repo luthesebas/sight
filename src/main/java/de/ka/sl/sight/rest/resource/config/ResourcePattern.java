@@ -1,7 +1,7 @@
 package de.ka.sl.sight.rest.resource.config;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public class ResourceConfig {
+public class ResourcePattern {
 
     public static final String ID_PATTERN = "[0-9]+";
 

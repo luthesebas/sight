@@ -1,7 +1,9 @@
 package de.ka.sl.sight.rest.resource.config;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public class InstructionConfig extends ResourceConfig {
+public class InstructionPattern extends ResourcePattern {
+
+    private InstructionPattern () {}
 
     public static final String NAME = "instruction";
     public static final String NAME_PLURAL = "instructions";

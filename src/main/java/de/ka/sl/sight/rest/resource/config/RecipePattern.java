@@ -1,7 +1,7 @@
 package de.ka.sl.sight.rest.resource.config;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public class RecipeConfig extends ResourceConfig {
+public class RecipePattern extends ResourcePattern {
 
     public static final String NAME = "recipe";
     public static final String NAME_PLURAL = "recipes";

@@ -5,8 +5,8 @@ import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.UriFactory;
-import de.ka.sl.sight.rest.resource.config.RecipeConfig;
-import de.ka.sl.sight.rest.resource.config.ResourceConfig;
+import de.ka.sl.sight.rest.resource.config.RecipePattern;
+import de.ka.sl.sight.rest.resource.config.ResourcePattern;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;
 import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @RestController
-@RequestMapping(value = RecipeConfig.ROOT)
+@RequestMapping(value = RecipePattern.ROOT)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class RecipeController {
 
@@ -42,9 +42,9 @@ public final class RecipeController {
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
     }
 
-    @PutMapping(ResourceConfig.ID)
+    @PutMapping(ResourcePattern.ID)
     public ResponseEntity<Resource<Recipe>> update (
-        @PathVariable(ResourceConfig.ID_NAME) long recipeId,
+        @PathVariable(ResourcePattern.ID_NAME) long recipeId,
         @RequestBody UpdateRecipe data
     ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
@@ -62,25 +62,25 @@ public final class RecipeController {
         if (recipes != null && !recipes.isEmpty()) {
             return ResponseEntity.ok(resourceMapper.toResource(recipes, RecipeController.class));
         } else {
-            throw new NotFoundException(RecipeConfig.NAME_PLURAL);
+            throw new NotFoundException(RecipePattern.NAME_PLURAL);
         }
     }
 
-    @GetMapping(ResourceConfig.ID)
+    @GetMapping(ResourcePattern.ID)
     public ResponseEntity<Resource<Recipe>> read (
-        @PathVariable(ResourceConfig.ID_NAME) long recipeId
+        @PathVariable(ResourcePattern.ID_NAME) long recipeId
     ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
             return ResponseEntity.ok(resourceMapper.toResource(recipe.get()));
         } else {
-            throw new NotFoundException(RecipeConfig.NAME, recipeId);
+            throw new NotFoundException(RecipePattern.NAME, recipeId);
         }
     }
 
-    @DeleteMapping(ResourceConfig.ID)
+    @DeleteMapping(ResourcePattern.ID)
     public ResponseEntity delete (
-        @PathVariable(ResourceConfig.ID_NAME) long recipeId
+        @PathVariable(ResourcePattern.ID_NAME) long recipeId
     ) {
         recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();
