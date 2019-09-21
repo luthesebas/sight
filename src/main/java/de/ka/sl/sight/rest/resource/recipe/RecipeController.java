@@ -14,7 +14,6 @@ import de.ka.sl.sight.rest.resource.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,22 +54,22 @@ public final class RecipeController {
     }
 
     @GetMapping
-    public Resources<Resource<RecipeEntity>> read () throws NotFoundException {
+    public ResponseEntity<?> read () throws NotFoundException {
         List<RecipeEntity> recipes = recipeService.read();
         if (recipes != null && !recipes.isEmpty()) {
-            return mapper.toResource(recipes, RecipeController.class);
+            return ResponseEntity.ok(mapper.toResource(recipes, RecipeController.class));
         } else {
             throw new NotFoundException(RecipeEntity.class);
         }
     }
 
     @GetMapping(ResourceConfig.ID)
-    public Resource<RecipeEntity> read (
+    public ResponseEntity<?> read (
         @PathVariable(ResourceConfig.ID_NAME) long recipeId
     ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
-            return mapper.toResource(recipe.get());
+            return ResponseEntity.ok(mapper.toResource(recipe.get()));
         } else {
             throw new NotFoundException(RecipeEntity.class, recipeId);
         }
