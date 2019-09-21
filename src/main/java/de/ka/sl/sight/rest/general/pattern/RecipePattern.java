@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.resource.pattern;
+package de.ka.sl.sight.rest.general.pattern;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
 public abstract class RecipePattern {

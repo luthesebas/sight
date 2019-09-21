@@ -5,7 +5,7 @@ import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.UriFactory;
-import de.ka.sl.sight.rest.resource.pattern.RecipePattern;
+import de.ka.sl.sight.rest.general.pattern.RecipePattern;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;
 import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;

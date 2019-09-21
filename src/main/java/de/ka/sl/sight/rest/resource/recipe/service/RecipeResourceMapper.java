@@ -2,8 +2,8 @@ package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
-import de.ka.sl.sight.rest.resource.pattern.InstructionPattern;
-import de.ka.sl.sight.rest.resource.pattern.RecipePattern;
+import de.ka.sl.sight.rest.general.pattern.InstructionPattern;
+import de.ka.sl.sight.rest.general.pattern.RecipePattern;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import de.ka.sl.sight.rest.resource.recipe.RecipeController;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;

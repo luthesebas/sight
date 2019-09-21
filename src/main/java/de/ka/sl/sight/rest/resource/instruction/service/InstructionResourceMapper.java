@@ -2,7 +2,7 @@ package de.ka.sl.sight.rest.resource.instruction.service;
 
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.rest.resource.IResourceMapper;
-import de.ka.sl.sight.rest.resource.pattern.InstructionPattern;
+import de.ka.sl.sight.rest.general.pattern.InstructionPattern;
 import de.ka.sl.sight.rest.resource.instruction.InstructionController;
 import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import lombok.RequiredArgsConstructor;
