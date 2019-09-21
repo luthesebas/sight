@@ -28,7 +28,7 @@ public class InstructionResourceMapper implements IResourceMapper<InstructionEnt
                 .slash(instructionEntity.getId())
                 .withSelfRel());
             resource.add(linkTo(InstructionController.class, instructionEntity.getRecipe().getId()).withRel(
-                InstructionPattern.RESOURCE_NAME));
+                InstructionPattern.RESOURCE));
         }
         return resource;
     }

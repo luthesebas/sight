@@ -26,8 +26,8 @@ public class RecipeResourceMapper implements IResourceMapper<RecipeEntity, Recip
         Recipe model = recipeMapper.mapToModel(recipeEntity);
         Resource<Recipe> resource = new Resource<>(model);
         resource.add(linkTo(RecipeController.class).slash(recipeEntity.getId()).withSelfRel());
-        resource.add(linkTo(InstructionController.class, recipeEntity.getId()).withRel(InstructionPattern.RESOURCE_NAME));
-        resource.add(linkTo(RecipeController.class).withRel(RecipePattern.RESOURCE_NAME));
+        resource.add(linkTo(InstructionController.class, recipeEntity.getId()).withRel(InstructionPattern.RESOURCE));
+        resource.add(linkTo(RecipeController.class).withRel(RecipePattern.RESOURCE));
         return resource;
     }
 

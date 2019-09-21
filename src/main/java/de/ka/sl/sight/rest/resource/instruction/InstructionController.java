@@ -6,7 +6,6 @@ import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.resource.config.InstructionPattern;
 import de.ka.sl.sight.rest.resource.config.RecipePattern;
-import de.ka.sl.sight.rest.resource.config.ResourcePattern;
 import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import de.ka.sl.sight.rest.resource.instruction.service.InstructionResourceMapper;
 import de.ka.sl.sight.rest.resource.instruction.service.InstructionService;
@@ -25,7 +24,7 @@ import java.util.Optional;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @RestController
-@RequestMapping(RecipePattern.ROOT + RecipePattern.ID_PATH + InstructionPattern.ROOT)
+@RequestMapping(RecipePattern.ROOT + RecipePattern.ONE + InstructionPattern.ROOT)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class InstructionController {
 
@@ -52,10 +51,10 @@ public final class InstructionController {
         }
     }
 
-    @PutMapping(ResourcePattern.ID)
+    @PutMapping(InstructionPattern.ONE)
     public ResponseEntity<Resource<Instruction>> update (
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
-        @PathVariable(ResourcePattern.ID_NAME) long instructionId,
+        @PathVariable(InstructionPattern.ID_NAME) long instructionId,
         @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
         Optional<RecipeEntity> optional = recipeService.read(recipeId);
@@ -80,10 +79,10 @@ public final class InstructionController {
         }
     }
 
-    @GetMapping(ResourcePattern.ID)
+    @GetMapping(InstructionPattern.ONE)
     public Resource<Instruction> read (
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
-        @PathVariable(ResourcePattern.ID_NAME) long instructionId
+        @PathVariable(InstructionPattern.ID_NAME) long instructionId
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
         if (optional.isPresent()) {
@@ -93,10 +92,10 @@ public final class InstructionController {
         }
     }
 
-    @DeleteMapping(ResourcePattern.ID)
+    @DeleteMapping(InstructionPattern.ONE)
     public ResponseEntity delete (
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
-        @PathVariable(ResourcePattern.ID_NAME) long instructionId
+        @PathVariable(InstructionPattern.ID_NAME) long instructionId
     ) {
         instructionService.delete(instructionId, recipeId);
         return ResponseEntity.noContent().build();

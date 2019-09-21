@@ -6,7 +6,6 @@ import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import de.ka.sl.sight.rest.general.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.UriFactory;
 import de.ka.sl.sight.rest.resource.config.RecipePattern;
-import de.ka.sl.sight.rest.resource.config.ResourcePattern;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.model.Recipe;
 import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;
@@ -42,9 +41,9 @@ public final class RecipeController {
         return ResponseEntity.created(UriFactory.of(resource)).body(resource);
     }
 
-    @PutMapping(ResourcePattern.ID)
+    @PutMapping(RecipePattern.ONE)
     public ResponseEntity<Resource<Recipe>> update (
-        @PathVariable(ResourcePattern.ID_NAME) long recipeId,
+        @PathVariable(RecipePattern.ID_NAME) long recipeId,
         @RequestBody UpdateRecipe data
     ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.update(recipeId, data);
@@ -66,9 +65,9 @@ public final class RecipeController {
         }
     }
 
-    @GetMapping(ResourcePattern.ID)
+    @GetMapping(RecipePattern.ONE)
     public ResponseEntity<Resource<Recipe>> read (
-        @PathVariable(ResourcePattern.ID_NAME) long recipeId
+        @PathVariable(RecipePattern.ID_NAME) long recipeId
     ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
         if (recipe.isPresent()) {
@@ -78,9 +77,9 @@ public final class RecipeController {
         }
     }
 
-    @DeleteMapping(ResourcePattern.ID)
+    @DeleteMapping(RecipePattern.ONE)
     public ResponseEntity delete (
-        @PathVariable(ResourcePattern.ID_NAME) long recipeId
+        @PathVariable(RecipePattern.ID_NAME) long recipeId
     ) {
         recipeService.delete(recipeId);
         return ResponseEntity.noContent().build();
