@@ -8,71 +8,78 @@ import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @ControllerAdvice
 public final class AppExceptionAdvice {
 
-    private ExceptionMessage mapToMessage (Exception ex) {
-        // ex.printStackTrace();
+    @ResponseBody
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionMessage handel (NotFoundException ex) {
         return new ExceptionMessage(ex.getMessage());
     }
 
-    private ExceptionMessage mapToMessage (String message) {
-        return new ExceptionMessage(message);
-    }
 
-    @ExceptionHandler(NotFoundException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionMessage handel (NotFoundException ex) {
-        return mapToMessage(ex);
-    }
-
-    @ExceptionHandler(JsonMappingException.class)
-    @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage handel (JsonMappingException ex) {
-        return mapToMessage(ex);
+    public Map<String, String> handel (MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
-    @ExceptionHandler(JsonProcessingException.class)
+
     @ResponseBody
+    @ExceptionHandler(JsonProcessingException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionMessage handel (JsonProcessingException ex) {
-        return mapToMessage(ex);
+        return new ExceptionMessage(ex.getMessage());
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+
     @ResponseBody
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionMessage handel (HttpMessageNotReadableException ex) {
-        return mapToMessage(ex);
+        return new ExceptionMessage(ex.getMessage());
     }
+
 
     @ExceptionHandler(ClientAbortException.class)
     public void handel(ClientAbortException ex) {
         //do nothing...
     }
 
-    @ExceptionHandler(AppException.class)
+
     @ResponseBody
+    @ExceptionHandler(AppException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionMessage handel (AppException ex) {
-        return mapToMessage(ex.getMessage());
+        return new ExceptionMessage(ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
     @ResponseBody
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionMessage handel (Exception ex, WebRequest request) {
         ex.printStackTrace();
-        return mapToMessage("Oops... something went wrong on our end. Sorry!");
+        return new ExceptionMessage("Oops... something went wrong. Sorry!");
     }
 
 }
