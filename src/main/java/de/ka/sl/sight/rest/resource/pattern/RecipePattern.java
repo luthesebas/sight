@@ -1,13 +1,13 @@
-package de.ka.sl.sight.rest.resource.config;
+package de.ka.sl.sight.rest.resource.pattern;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public abstract class InstructionPattern {
+public abstract class RecipePattern {
 
-    public static final String NAME = "instruction";
-    public static final String NAME_PLURAL = "instructions";
-    public static final String RESOURCE = "instructions";
+    public static final String NAME = "recipe";
+    public static final String NAME_PLURAL = "recipes";
+    public static final String RESOURCE = "recipes";
 
-    public static final String ID_NAME = "instructionId";
+    public static final String ID_NAME = "recipeId";
     public static final String ID_PATTERN = "[0-9]+";
 
     /*--------------------
