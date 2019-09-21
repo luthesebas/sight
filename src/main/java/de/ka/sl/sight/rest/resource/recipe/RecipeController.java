@@ -62,7 +62,7 @@ public final class RecipeController {
         if (recipes != null && !recipes.isEmpty()) {
             return ResponseEntity.ok(resourceMapper.toResource(recipes, RecipeController.class));
         } else {
-            throw new NotFoundException(RecipeEntity.class);
+            throw new NotFoundException(RecipeConfig.NAME_PLURAL);
         }
     }
 
@@ -74,7 +74,7 @@ public final class RecipeController {
         if (recipe.isPresent()) {
             return ResponseEntity.ok(resourceMapper.toResource(recipe.get()));
         } else {
-            throw new NotFoundException(RecipeEntity.class, recipeId);
+            throw new NotFoundException(RecipeConfig.NAME, recipeId);
         }
     }
 

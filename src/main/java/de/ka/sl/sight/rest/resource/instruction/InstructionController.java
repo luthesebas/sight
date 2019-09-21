@@ -49,7 +49,7 @@ public final class InstructionController {
             Resource<Instruction> resource = instructionMapper.toResource(instruction);
             return ResponseEntity.created(uriOf(resource)).body(resource);
         } else {
-            throw new NotFoundException(Recipe.class, recipeId);
+            throw new NotFoundException(RecipeConfig.NAME, recipeId);
         }
     }
 
@@ -65,7 +65,7 @@ public final class InstructionController {
             Resource<Instruction> resource = instructionMapper.toResource(instruction);
             return ResponseEntity.created(uriOf(resource)).body(resource);
         } else {
-            throw new NotFoundException(RecipeEntity.class, recipeId);
+            throw new NotFoundException(RecipeConfig.NAME, recipeId);
         }
     }
 
@@ -77,7 +77,7 @@ public final class InstructionController {
         if (instructions != null && !instructions.isEmpty()) {
             return instructionMapper.toResource(instructions, InstructionController.class, recipeId);
         } else {
-            throw new NotFoundException(InstructionEntity.class);
+            throw new NotFoundException(InstructionConfig.NAME_PLURAL);
         }
     }
 
@@ -90,7 +90,7 @@ public final class InstructionController {
         if (optional.isPresent()) {
             return instructionMapper.toResource(optional.get());
         } else {
-            throw new NotFoundException(Instruction.class, instructionId);
+            throw new NotFoundException(InstructionConfig.NAME, instructionId);
         }
     }
 
