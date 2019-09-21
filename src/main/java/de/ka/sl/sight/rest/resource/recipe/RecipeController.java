@@ -17,6 +17,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public final class RecipeController {
 
     @PostMapping
     public ResponseEntity<?> create (
-        @RequestBody CreateRecipe data
+        @Valid @RequestBody CreateRecipe data
     ) throws URISyntaxException, UnprocessableException {
         RecipeEntity recipe = recipeService.create(data);
         Resource<RecipeEntity> resource = mapper.toResource(recipe);
