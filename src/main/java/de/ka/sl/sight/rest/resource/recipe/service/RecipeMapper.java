@@ -40,7 +40,11 @@ public final class RecipeMapper implements IModelMapper<RecipeEntity, Recipe> {
     }
 
     public RecipeEntity map (UpdateRecipe data) {
-        return map((CreateRecipe) data);
+        RecipeEntity recipe = new RecipeEntity();
+        recipe.setId(data.getId());
+        recipe.setTitle(data.getTitle());
+        recipe.setDescription(data.getDescription());
+        return recipe;
     }
 
 }

@@ -1,11 +1,23 @@
 package de.ka.sl.sight.rest.resource.recipe.model;
 
+import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
+
+import java.util.List;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Data
-@ToString(callSuper = true)
-public class UpdateRecipe extends CreateRecipe {
+public class UpdateRecipe {
+
+    @ApiModelProperty(value = "The unique recipe id", required = true)
+    private long id;
+
+    @ApiModelProperty("The recipe title")
+    private String title;
+    @ApiModelProperty("The recipe description")
+    private String description;
+    @ApiModelProperty("The instructions of the recipe")
+    private List<Instruction> instructions;
 
 }
