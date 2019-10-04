@@ -11,6 +11,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Configuration
@@ -19,7 +21,15 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api () {
+        Set<String> produces = new HashSet<>();
+        produces.add("application/hal+json");
+        Set<String> consumes = new HashSet<>();
+        consumes.add("application/json");
+
         return new Docket(DocumentationType.SWAGGER_2)
+            .groupName("sight-api")
+            .produces(produces)
+            .consumes(consumes)
             .select()
             .apis(RequestHandlerSelectors.basePackage("de.ka.sl.sight"))
             .paths(PathSelectors.any())

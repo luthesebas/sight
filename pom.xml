@@ -21,33 +21,25 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<profiles>
-		<profile>
-			<!-- default profile -->
-			<id>dev</id>
-			<properties>
-				<tests.skip.integration>true</tests.skip.integration>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>integration-test</id>
-			<properties>
-				<tests.skip.integration>false</tests.skip.integration>
-			</properties>
-		</profile>
-	</profiles>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<java.version>11</java.version>
 
+		<tests.integration.disable>false</tests.integration.disable>
 		<tests.integration.pattern>**/*ITest.java</tests.integration.pattern>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<tests.integration.disable>true</tests.integration.disable>
+				<api.doc.disable>true</api.doc.disable>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<!-- starters -->
@@ -103,16 +95,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
-		</dependency>
 
 		<!-- test -->
 		<dependency>
@@ -127,6 +109,18 @@
 			<scope>test</scope>
 		</dependency>
 		-->
+
+		<!-- api documentation -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -135,6 +129,23 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- display active profile in compile phase -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-help-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>show-profiles</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>active-profiles</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- unit tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -147,13 +158,14 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 			<!-- integration tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
-					<skip>${tests.skip.integration}</skip>
+					<skip>${tests.integration.disable}</skip>
 					<includes>
 						<include>${tests.integration.pattern}</include>
 					</includes>
