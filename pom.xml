@@ -8,7 +8,7 @@
 
 	<groupId>de.ka.sl</groupId>
 	<artifactId>sight</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>sight</name>
@@ -40,6 +40,12 @@
 			</properties>
 		</profile>
 	</profiles>
+
+	<scm> <!-- version control -->
+		<connection>scm:git:https://github.com/luthesebas/sight.git</connection>
+		<developerConnection>scm:git:https://github.com/luthesebas/sight.git</developerConnection>
+		<url>https://github.com/luthesebas/sight</url>
+	</scm>
 
 	<dependencies>
 		<!-- starters -->
@@ -110,7 +116,7 @@
 		</dependency>
 		-->
 
-		<!-- api documentation -->
+		<!-- swagger api documentation -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -171,7 +177,30 @@
 					</includes>
 				</configuration>
 			</plugin>
+
+			<!-- build number -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<urlScm>https://github.com/luthesebas/sight</urlScm>
+					<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+					<shortRevisionLength>8</shortRevisionLength>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<finalName>${project.artifactId}-${project.version}-${buildNumber}</finalName>
 	</build>
 
 </project>
