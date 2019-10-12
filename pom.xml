@@ -27,6 +27,11 @@
 
 		<java.version>11</java.version>
 
+		<versionControl.url>https://github.com/luthesebas/sight</versionControl.url>
+
+		<path.resources.name>application.properties</path.resources.name>
+		<path.resources.directory>src/main/resources</path.resources.directory>
+
 		<tests.integration.disable>false</tests.integration.disable>
 		<tests.integration.pattern>**/*ITest.java</tests.integration.pattern>
 	</properties>
@@ -42,9 +47,9 @@
 	</profiles>
 
 	<scm> <!-- version control -->
-		<connection>scm:git:https://github.com/luthesebas/sight.git</connection>
-		<developerConnection>scm:git:https://github.com/luthesebas/sight.git</developerConnection>
-		<url>https://github.com/luthesebas/sight</url>
+		<connection>scm:git:${versionControl.url}.git</connection>
+		<developerConnection>scm:git:${versionControl.url}.git</developerConnection>
+		<url>${versionControl.url}</url>
 	</scm>
 
 	<dependencies>
@@ -79,6 +84,16 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- dep -->
 		<dependency>
@@ -90,16 +105,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
 		</dependency>
 
 		<!-- test -->
@@ -130,6 +135,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}-${project.version}-${buildNumber}</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -184,7 +191,7 @@
 				<artifactId>buildnumber-maven-plugin</artifactId>
 				<version>1.4</version>
 				<configuration>
-					<urlScm>https://github.com/luthesebas/sight</urlScm>
+					<urlScm>${versionControl.url}</urlScm>
 					<getRevisionOnlyOnce>true</getRevisionOnlyOnce>
 					<shortRevisionLength>8</shortRevisionLength>
 					<doCheck>false</doCheck>
@@ -200,14 +207,14 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>${project.artifactId}-${project.version}-${buildNumber}</finalName>
+
 		<resources>
 			<!-- include maven properties in application.properties -->
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>${path.resources.directory}</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>application.properties</include>
+					<include>${path.resources.name}</include>
 				</includes>
 			</resource>
 		</resources>
