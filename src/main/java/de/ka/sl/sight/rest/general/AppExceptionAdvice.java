@@ -1,7 +1,6 @@
 package de.ka.sl.sight.rest.general;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import de.ka.sl.sight.rest.general.exception.AppException;
 import de.ka.sl.sight.rest.general.exception.ExceptionMessage;
 import de.ka.sl.sight.rest.general.exception.NotFoundException;

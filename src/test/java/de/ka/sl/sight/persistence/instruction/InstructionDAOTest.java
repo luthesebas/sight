@@ -18,7 +18,9 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
-/** @author Sebastian Luther (https://github.com/luthesebas) */
+/**
+ * @author Sebastian Luther (https://github.com/luthesebas)
+ */
 @RunWith(SpringRunner.class)
 @EnableTransactionManagement
 @EnableJpaAuditing
