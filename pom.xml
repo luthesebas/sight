@@ -25,23 +25,34 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<java.version>11</java.version>
+		<java.version>8</java.version>
+
+		<stages>dev</stages>
 
 		<versionControl.url>https://github.com/luthesebas/sight</versionControl.url>
 
 		<path.resources.name>application.properties</path.resources.name>
 		<path.resources.directory>src/main/resources</path.resources.directory>
 
-		<tests.integration.disable>false</tests.integration.disable>
+		<tests.integration.disable>true</tests.integration.disable>
 		<tests.integration.pattern>**/*ITest.java</tests.integration.pattern>
 	</properties>
 
 	<profiles>
+		<!-- Development, Staging, and Production Model -->
+		<!-- Development is active by default -->
 		<profile>
-			<id>dev</id>
+			<id>staging</id>
 			<properties>
-				<tests.integration.disable>true</tests.integration.disable>
-				<api.doc.disable>true</api.doc.disable>
+				<stages>k</stages>
+				<tests.integration.disable>false</tests.integration.disable>
+			</properties>
+		</profile>
+		<profile>
+			<id>production</id>
+			<properties>
+				<stages>p</stages>
+				<tests.integration.disable>false</tests.integration.disable>
 			</properties>
 		</profile>
 	</profiles>
@@ -165,6 +176,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
+					<redirectTestOutputToFile>${tests.integration.disable}</redirectTestOutputToFile>
 					<!-- exclude all integration tests -->
 					<excludes>
 						<exclude>${tests.integration.pattern}</exclude>
@@ -179,6 +191,8 @@
 				<version>3.0.0-M3</version>
 				<configuration>
 					<skip>${tests.integration.disable}</skip>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<!-- include all integration tests -->
 					<includes>
 						<include>${tests.integration.pattern}</include>
 					</includes>
@@ -208,8 +222,9 @@
 			</plugin>
 		</plugins>
 
+		<!-- no need by using spring parent pom
 		<resources>
-			<!-- include maven properties in application.properties -->
+			<!- include maven properties in application.properties ->
 			<resource>
 				<directory>${path.resources.directory}</directory>
 				<filtering>true</filtering>
@@ -218,6 +233,7 @@
 				</includes>
 			</resource>
 		</resources>
+		-->
 	</build>
 
 </project>
