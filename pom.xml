@@ -34,6 +34,7 @@
 		<path.resources.name>application.properties</path.resources.name>
 		<path.resources.directory>src/main/resources</path.resources.directory>
 
+		<tests.outputToFile>false</tests.outputToFile>
 		<tests.integration.disable>true</tests.integration.disable>
 		<tests.integration.pattern>**/*ITest.java</tests.integration.pattern>
 	</properties>
@@ -45,6 +46,7 @@
 			<id>staging</id>
 			<properties>
 				<stages>k</stages>
+				<tests.outputToFile>true</tests.outputToFile>
 				<tests.integration.disable>false</tests.integration.disable>
 			</properties>
 		</profile>
@@ -52,6 +54,7 @@
 			<id>production</id>
 			<properties>
 				<stages>p</stages>
+				<tests.outputToFile>true</tests.outputToFile>
 				<tests.integration.disable>false</tests.integration.disable>
 			</properties>
 		</profile>
@@ -179,7 +182,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<configuration>
-					<redirectTestOutputToFile>${tests.integration.disable}</redirectTestOutputToFile>
+					<redirectTestOutputToFile>${tests.outputToFile}</redirectTestOutputToFile>
 					<!-- exclude all integration tests -->
 					<excludes>
 						<exclude>${tests.integration.pattern}</exclude>
@@ -234,15 +237,27 @@
 				<version>0.8.5</version>
 				<executions>
 					<execution>
+						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
+						<id>default-report</id>
 						<goals>
 							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-prepare-agent-integration</id>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report-integration</id>
+						<goals>
+							<goal>report-integration</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -344,5 +359,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
 </project>
