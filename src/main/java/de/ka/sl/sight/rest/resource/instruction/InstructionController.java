@@ -10,6 +10,7 @@ import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import de.ka.sl.sight.rest.resource.instruction.service.InstructionResourceMapper;
 import de.ka.sl.sight.rest.resource.instruction.service.InstructionService;
 import de.ka.sl.sight.rest.resource.recipe.service.RecipeService;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
@@ -38,6 +39,7 @@ public final class InstructionController {
 
     @PostMapping()
     public ResponseEntity<Resource<Instruction>> create (
+        @ApiParam(value = "Id of the corresponding recipe", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
         @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
@@ -53,7 +55,9 @@ public final class InstructionController {
 
     @PutMapping(InstructionPattern.ONE)
     public ResponseEntity<Resource<Instruction>> update (
+        @ApiParam(value = "Id of the corresponding recipe", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
+        @ApiParam(value = "Id of the instruction to update", required = true, example = "1")
         @PathVariable(InstructionPattern.ID_NAME) long instructionId,
         @RequestBody InstructionEntity data
     ) throws AppException, URISyntaxException {
@@ -69,6 +73,7 @@ public final class InstructionController {
 
     @GetMapping()
     public Resources<Resource<Instruction>> read (
+        @ApiParam(value = "Id of the corresponding recipe", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId
     ) throws NotFoundException {
         List<InstructionEntity> instructions = instructionService.read(recipeId);
@@ -81,7 +86,9 @@ public final class InstructionController {
 
     @GetMapping(InstructionPattern.ONE)
     public Resource<Instruction> read (
+        @ApiParam(value = "Id of the corresponding recipe", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
+        @ApiParam(value = "Id of the instruction to read", required = true, example = "1")
         @PathVariable(InstructionPattern.ID_NAME) long instructionId
     ) throws AppException {
         Optional<InstructionEntity> optional = instructionService.read(instructionId, recipeId);
@@ -94,7 +101,9 @@ public final class InstructionController {
 
     @DeleteMapping(InstructionPattern.ONE)
     public ResponseEntity delete (
+        @ApiParam(value = "Id of the corresponding recipe", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
+        @ApiParam(value = "Id of the instruction to delete", required = true, example = "1")
         @PathVariable(InstructionPattern.ID_NAME) long instructionId
     ) {
         instructionService.delete(instructionId, recipeId);

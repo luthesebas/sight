@@ -1,7 +1,9 @@
 package de.ka.sl.sight.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -18,6 +20,9 @@ import java.util.Set;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
+    @Autowired
+    private Environment environment;
 
     @Bean
     public Docket api () {
@@ -39,9 +44,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo () {
         return new ApiInfo(
-            "sight REST API",
-            "This is the official sight REST API.",
-            "0.0.1",
+            environment.getProperty("app.info.name"),
+            environment.getProperty("app.info.description"),
+            environment.getProperty("app.info.version"),
             "Terms of service URL",
             new Contact(
                 "Sebastian Luther",

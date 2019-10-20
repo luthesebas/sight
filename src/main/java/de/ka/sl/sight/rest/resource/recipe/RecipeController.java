@@ -59,7 +59,7 @@ public final class RecipeController {
     })
     @PutMapping(RecipePattern.ONE)
     public ResponseEntity<Resource<Recipe>> update (
-        @ApiParam(value = "Id of the recipe to update", required = true)
+        @ApiParam(value = "Id of the recipe to update", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId,
         @ApiParam(value = "Details to update of the recipe", required = true)
         @RequestBody UpdateRecipe data
@@ -99,7 +99,7 @@ public final class RecipeController {
     })
     @GetMapping(RecipePattern.ONE)
     public ResponseEntity<Resource<Recipe>> read (
-        @ApiParam(value = "Id of the recipe to read", required = true)
+        @ApiParam(value = "Id of the recipe to read", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId
     ) throws AppException {
         Optional<RecipeEntity> recipe = recipeService.read(recipeId);
@@ -119,7 +119,7 @@ public final class RecipeController {
     })
     @DeleteMapping(RecipePattern.ONE)
     public ResponseEntity delete (
-        @ApiParam(value = "Id of the recipe to delete", required = true)
+        @ApiParam(value = "Id of the recipe to delete", required = true, example = "1")
         @PathVariable(RecipePattern.ID_NAME) long recipeId
     ) {
         recipeService.delete(recipeId);
