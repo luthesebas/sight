@@ -2,7 +2,9 @@ package de.ka.sl.sight.rest.resource.recipe.service;
 
 import de.ka.sl.sight.persistence.recipe.RecipeDAO;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-import de.ka.sl.sight.rest.general.exception.UnprocessableException;
+import de.ka.sl.sight.rest.config.RecipeConfig;
+import de.ka.sl.sight.rest.exception.NotFoundException;
+import de.ka.sl.sight.rest.exception.UnprocessableException;
 import de.ka.sl.sight.rest.resource.recipe.model.CreateRecipe;
 import de.ka.sl.sight.rest.resource.recipe.model.UpdateRecipe;
 import lombok.RequiredArgsConstructor;
@@ -64,9 +66,11 @@ public class RecipeService {
     }
 
     @Transactional
-    public void delete (long recipeId) {
+    public void delete (long recipeId) throws NotFoundException {
         if (exists(recipeId)) {
             recipeDAO.deleteById(recipeId);
+        } else {
+            throw new NotFoundException(RecipeConfig.NAME, recipeId);
         }
     }
 
