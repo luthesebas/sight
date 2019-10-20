@@ -4,7 +4,6 @@ package de.ka.sl.sight.rest.config;
 public abstract class RecipeConfig {
 
     public static final String NAME = "recipe";
-    public static final String NAME_PLURAL = "recipes";
     public static final String RESOURCE = "recipes";
 
     public static final String ID_NAME = "recipeId";

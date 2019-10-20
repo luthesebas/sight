@@ -25,7 +25,7 @@ import java.util.Optional;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Api(
-    tags = InstructionConfig.NAME_PLURAL,
+    tags = InstructionConfig.RESOURCE,
     description = "Operations pertaining to instructions"
 )
 @RestController

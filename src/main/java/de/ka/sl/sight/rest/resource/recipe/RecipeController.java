@@ -26,7 +26,7 @@ import java.util.Optional;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Api(
-    tags = RecipeConfig.NAME_PLURAL,
+    tags = RecipeConfig.RESOURCE,
     description = "Operations pertaining to recipes"
 )
 @RestController
@@ -89,7 +89,7 @@ public final class RecipeController {
         if (recipes != null && !recipes.isEmpty()) {
             return ResponseEntity.ok(resourceMapper.toResource(recipes, RecipeController.class));
         } else {
-            throw new NotFoundException(RecipeConfig.NAME_PLURAL);
+            throw new NotFoundException(RecipeConfig.RESOURCE);
         }
     }
 

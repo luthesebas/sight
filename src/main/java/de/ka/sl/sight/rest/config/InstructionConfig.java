@@ -4,7 +4,6 @@ package de.ka.sl.sight.rest.config;
 public abstract class InstructionConfig {
 
     public static final String NAME = "instruction";
-    public static final String NAME_PLURAL = "instructions";
     public static final String RESOURCE = "instructions";
 
     public static final String ID_NAME = "instructionId";
