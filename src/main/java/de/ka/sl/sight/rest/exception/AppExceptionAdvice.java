@@ -40,13 +40,9 @@ public final class AppExceptionAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler({
-        UnprocessableException.class,
-        JsonProcessingException.class,
-        HttpMessageNotReadableException.class
-    })
+    @ExceptionHandler({UnprocessableException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage handel (Exception ex) {
+    public ExceptionMessage handel (UnprocessableException ex) {
         return new ExceptionMessage(ex.getMessage());
     }
 
