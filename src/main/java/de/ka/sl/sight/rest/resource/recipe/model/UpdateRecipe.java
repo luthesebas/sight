@@ -17,7 +17,5 @@ public class UpdateRecipe {
     private String title;
     @ApiModelProperty("The recipe description")
     private String description;
-    @ApiModelProperty("The instructions of the recipe")
-    private List<Instruction> instructions;
 
 }

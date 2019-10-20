@@ -1,11 +1,9 @@
 package de.ka.sl.sight.rest.resource.recipe.model;
 
-import de.ka.sl.sight.rest.resource.instruction.model.Instruction;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @Data
@@ -18,8 +16,6 @@ public class Recipe {
     private String title;
     @ApiModelProperty("The recipe description")
     private String description;
-    @ApiModelProperty("The instructions of the recipe")
-    private List<Instruction> instructions;
 
     @ApiModelProperty("The modification date of the recipe")
     private LocalDateTime modifiedDate;
