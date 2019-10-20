@@ -14,4 +14,6 @@ public interface InstructionDAO extends JpaRepository<InstructionEntity, Long> {
 
     Optional<InstructionEntity> findByIdAndRecipeId (long id, long recipeId);
 
+    void deleteByIdAndRecipeId (long id, long recipeId);
+
 }
