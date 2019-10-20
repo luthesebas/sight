@@ -3,7 +3,9 @@ package de.ka.sl.sight.rest.resource.instruction.service;
 import de.ka.sl.sight.persistence.instruction.InstructionDAO;
 import de.ka.sl.sight.persistence.instruction.InstructionEntity;
 import de.ka.sl.sight.persistence.recipe.RecipeEntity;
-import de.ka.sl.sight.rest.general.exception.UnprocessableException;
+import de.ka.sl.sight.rest.config.InstructionConfig;
+import de.ka.sl.sight.rest.exception.NotFoundException;
+import de.ka.sl.sight.rest.exception.UnprocessableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,9 +75,11 @@ public class InstructionService {
     }
 
     @Transactional
-    public void delete (long instructionId, long recipeId) {
+    public void delete (long instructionId, long recipeId) throws NotFoundException {
         if (exists(instructionId)) {
-            instructionDAO.deleteById(instructionId);
+            instructionDAO.deleteByIdAndRecipeId(instructionId, recipeId);
+        } else {
+            throw new NotFoundException(InstructionConfig.NAME, instructionId);
         }
     }
 
