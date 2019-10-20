@@ -1,7 +1,7 @@
-package de.ka.sl.sight.rest.general.pattern;
+package de.ka.sl.sight.rest.config;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public abstract class InstructionPattern {
+public abstract class InstructionConfig {
 
     public static final String NAME = "instruction";
     public static final String NAME_PLURAL = "instructions";

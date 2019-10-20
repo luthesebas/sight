@@ -1,7 +1,7 @@
-package de.ka.sl.sight.rest.general.pattern;
+package de.ka.sl.sight.rest.config;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public abstract class RecipePattern {
+public abstract class RecipeConfig {
 
     public static final String NAME = "recipe";
     public static final String NAME_PLURAL = "recipes";

@@ -6,9 +6,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /** @author Sebastian Luther (@url(https://github.com/luthesebas)) */
-public class UriFactory {
+public class URIFactory {
 
-    private UriFactory () {}
+    private URIFactory () {}
 
     public static <T> URI of (Resource<T> resource) throws URISyntaxException {
         return new URI(resource.getId().expand().getHref());

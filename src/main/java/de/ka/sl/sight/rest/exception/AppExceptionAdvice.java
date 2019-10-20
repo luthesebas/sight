@@ -1,9 +1,6 @@
-package de.ka.sl.sight.rest.general;
+package de.ka.sl.sight.rest.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import de.ka.sl.sight.rest.general.exception.AppException;
-import de.ka.sl.sight.rest.general.exception.ExceptionMessage;
-import de.ka.sl.sight.rest.general.exception.NotFoundException;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -29,7 +26,6 @@ public final class AppExceptionAdvice {
         return new ExceptionMessage(ex.getMessage());
     }
 
-
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -43,6 +39,16 @@ public final class AppExceptionAdvice {
         return errors;
     }
 
+    @ResponseBody
+    @ExceptionHandler({
+        UnprocessableException.class,
+        JsonProcessingException.class,
+        HttpMessageNotReadableException.class
+    })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionMessage handel (Exception ex) {
+        return new ExceptionMessage(ex.getMessage());
+    }
 
     @ResponseBody
     @ExceptionHandler(JsonProcessingException.class)
@@ -51,7 +57,6 @@ public final class AppExceptionAdvice {
         return new ExceptionMessage(ex.getMessage());
     }
 
-
     @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -59,12 +64,10 @@ public final class AppExceptionAdvice {
         return new ExceptionMessage(ex.getMessage());
     }
 
-
     @ExceptionHandler(ClientAbortException.class)
-    public void handel(ClientAbortException ex) {
+    public void handel (ClientAbortException ex) {
         //do nothing...
     }
-
 
     @ResponseBody
     @ExceptionHandler(AppException.class)

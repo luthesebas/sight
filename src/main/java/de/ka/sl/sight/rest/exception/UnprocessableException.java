@@ -1,4 +1,4 @@
-package de.ka.sl.sight.rest.general.exception;
+package de.ka.sl.sight.rest.exception;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 public class UnprocessableException extends AppException {
