@@ -1,6 +1,11 @@
-package de.sight.rest.exception;
+package de.sight.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import de.sight.exception.AppException;
+import de.sight.exception.NotFoundException;
+import de.sight.exception.UnprocessableException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,7 +22,7 @@ import java.util.Map;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 @ControllerAdvice
-public final class AppExceptionAdvice {
+public final class ExceptionAdvice {
 
     @ResponseBody
     @ExceptionHandler(NotFoundException.class)
@@ -78,6 +83,12 @@ public final class AppExceptionAdvice {
     public ExceptionMessage handel (Exception ex, WebRequest request) {
         ex.printStackTrace();
         return new ExceptionMessage("Oops... something went wrong. Sorry!");
+    }
+
+    @Data
+    @AllArgsConstructor
+    private class ExceptionMessage {
+        private final String error;
     }
 
 }

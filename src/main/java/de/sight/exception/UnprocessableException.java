@@ -1,4 +1,4 @@
-package de.sight.rest.exception;
+package de.sight.exception;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
 public class UnprocessableException extends AppException {
