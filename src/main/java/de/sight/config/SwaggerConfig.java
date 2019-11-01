@@ -26,38 +26,46 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api () {
-        Set<String> produces = new HashSet<>();
-        produces.add("application/hal+json");
-        Set<String> consumes = new HashSet<>();
-        consumes.add("application/json");
-
         return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("sight-api")
-            .produces(produces)
-            .consumes(consumes)
+            .groupName(environment.getProperty("sight.project.artifact-id"))
+            .produces(producesMediaTypes())
+            .consumes(consumesMediaTypes())
             .select()
-            .apis(RequestHandlerSelectors.basePackage("de.sight.rest"))
+            .apis(RequestHandlerSelectors.basePackage(
+                environment.getProperty("sight.project.group-id")
+            ))
             .paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo () {
-        //TODO Extract to application.properties
         return new ApiInfo(
-            environment.getProperty("app.info.name"),
-            environment.getProperty("app.info.description"),
-            environment.getProperty("app.info.version"),
+            environment.getProperty("sight.project.name"),
+            environment.getProperty("sight.project.description"),
+            environment.getProperty("sight.project.version"),
             "Terms of service URL",
             new Contact(
-                "Sebastian Luther",
-                "https://github.com/luthesebas",
-                "-"
+                environment.getProperty("sight.contact.name"),
+                environment.getProperty("sight.contact.url"),
+                environment.getProperty("sight.contact.email")
             ),
-            "License of API",
-            "API license URL",
+            "API License",
+            "API License URL",
             Collections.emptyList()
         );
+    }
+
+    private Set<String> producesMediaTypes () {
+        Set<String> mediaTypes = new HashSet<>();
+        mediaTypes.add("application/hal+json");
+        return mediaTypes;
+    }
+
+    private Set<String> consumesMediaTypes () {
+        Set<String> mediaTypes = new HashSet<>();
+        mediaTypes.add("application/json");
+        return mediaTypes;
     }
 
 }

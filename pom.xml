@@ -6,13 +6,13 @@
 	http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de</groupId>
-	<artifactId>sight</artifactId>
+	<groupId>de.sight</groupId>
+	<artifactId>sight-api</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>sight</name>
-	<description>sight REST-Service</description>
+	<name>sight REST-API</name>
+	<description>sight REST-API</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -22,21 +22,22 @@
 	</parent>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<java.version>8</java.version>
+		<contact.name>Sebastian Luther</contact.name>
+		<contact.url>https://github.com/luthesebas</contact.url>
+		<contact.email>luthesebas@gmail.com</contact.email>
 
 		<stages>dev</stages>
 
-		<versionControl.url>https://github.com/luthesebas/sight</versionControl.url>
+		<java.version>8</java.version>
 
-		<path.resources.name>application.properties</path.resources.name>
-		<path.resources.directory>src/main/resources</path.resources.directory>
+		<versionControl.url>https://github.com/luthesebas/sight</versionControl.url>
 
 		<tests.outputToFile>false</tests.outputToFile>
 		<tests.integration.disable>true</tests.integration.disable>
 		<tests.integration.pattern>**/*ITest.java</tests.integration.pattern>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<profiles>
