@@ -1,6 +1,12 @@
-name: Java CI
+name: Maven Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -14,4 +20,9 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -P production
+      run: mvn -B install --file pom.xml -P production
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: sight-api
+        path: target
