@@ -3,18 +3,15 @@ package de.sight.persistence.instruction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.sight.persistence.IEntity;
 import de.sight.persistence.recipe.RecipeEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 /** @author Sebastian Luther (https://github.com/luthesebas) */
-@Data
-@ToString(callSuper = true, exclude = {"recipe"})
-@EqualsAndHashCode(callSuper = true, exclude = {"recipe"})
+@Getter
+@Setter
 @Entity
 @Table(
     name = "instruction",
@@ -31,7 +28,5 @@ public final class InstructionEntity extends IEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private RecipeEntity recipe;
-
-    public InstructionEntity () {}
 
 }
